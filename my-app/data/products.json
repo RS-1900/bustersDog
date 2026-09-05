@@ -1,78 +1,707 @@
 [
   {
-    "id": "hotdog-busters",
-    "name": "Hotdog Buster",
-    "description": "XD",
-    "price": 18,
+    "id": "bagel-pavo-queso",
+    "name": "Bagel De Pavo Y Queso",
+    "description": "Jitomate y lechuga (250g)",
+    "price": 60,
     "image": "https://www.seriouseats.com/thmb/QJZXQHDXBfTiUSKstQ1uskJc31g=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/SEA-best-grilled-hot-dogs-recipe-hero-02-9d245c0d43874a3da13a7228682b0dce.jpg",
     "category": "platillo",
     "available": false
 
   },
   {
-    "id": "pe",
-    "name": "burger",
-    "description": "XD",
-    "price": 19,
+    "id": "croissant-pavo-queso",
+    "name": "Croissant De Pavo Y Queso",
+    "description": "Jitomate y lechuga (230 G)",
+    "price": 55,
     "image": "https://www.seriouseats.com/thmb/QJZXQHDXBfTiUSKstQ1uskJc31g=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/SEA-best-grilled-hot-dogs-recipe-hero-02-9d245c0d43874a3da13a7228682b0dce.jpg",
     "category": "platillo",
     "available": true
 
   },
     {
-    "id": "pe2",
-    "name": "pepe",
-    "description": "XD",
-    "price": 19,
+    "id": "baguette-pavo-pomodoro",
+    "name": "Baguette De Pollo Y Pomodoro",
+    "description": "Gouda y mix de vegetales (190g)",
+    "price": 70,
     "image": "https://www.seriouseats.com/thmb/QJZXQHDXBfTiUSKstQ1uskJc31g=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/SEA-best-grilled-hot-dogs-recipe-hero-02-9d245c0d43874a3da13a7228682b0dce.jpg",
     "category": "platillo",
     "available": true
 
   },
     {
-    "id": "pe3",
-    "name": "burger32",
-    "description": "XD",
-    "price": 19,
+    "id": "chilaquiles-naturales",
+    "name": "Chilaquiles Naturales",
+    "description": "Salsa verde / roja, crema, queso (265 g)",
+    "price": 65,
     "image": "https://www.seriouseats.com/thmb/QJZXQHDXBfTiUSKstQ1uskJc31g=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/SEA-best-grilled-hot-dogs-recipe-hero-02-9d245c0d43874a3da13a7228682b0dce.jpg",
     "category": "platillo",
     "available": true
 
   },
-
-
-
-
-
-
   {
-    "id": "bebida-nub",
-    "name": "wafle",
-    "description": "XD",
-    "price": 18,
+    "id": "chilaquiles-milanesa-de-pollo",
+    "name": "Chilaquiles Con Milanesa De Pollo",
+    "description": "Salva verde / roja, pechuga de pollo (315 g)",
+    "price": 98,
     "image": "https://t4.ftcdn.net/jpg/06/67/21/49/360_F_667214967_7FIteIo4hLy3aNlpaMl3UZ8NO7IaZWJS.jpg",
+    "category": "platillo",
+    "available": true
+
+  },
+  {
+    "id": "molletec",
+    "name": "Molletec (2)",
+    "description": "Queso, frijoles y salsa mexicana (250 g)",
+    "price": 45,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "platillo",
+    "available": true
+
+  },
+    {
+    "id": "pita-pizza-jamon-queso",
+    "name": "Pita Pizza Jamón Y Queso",
+    "description": "Base integral, ragu, jamón y mozzarela (145 g)",
+    "price": 50,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "platillo",
+    "available": true
+
+  },
+
+      {
+    "id": "pita-pizza-jamon-peperoni",
+    "name": "Pita Pizza Jamón Peperoni",
+    "description": "Base integral, ragu, peperoni y mozzarela (145 g)",
+    "price": 55,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "platillo",
+    "available": true
+
+  },
+        {
+    "id": "nohoch-dog",
+    "name": "Nohoch Dog",
+    "description": "Carne de res y salsa mexicana (170 g)",
+    "price": 55,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "platillo",
+    "available": true
+
+  },
+          {
+    "id": "hamburguesa",
+    "name": "Hamburguesa",
+    "description": "Res, manchego y mix de vegetales (170g)",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "platillo",
+    "available": true
+
+  },
+            {
+    "id": "hamburguesa-doble",
+    "name": "Hamburguesa",
+    "description": "Res, manchego y mix de vegetales (210g)",
+    "price": 80,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "platillo",
+    "available": true
+
+  },
+              {
+    "id": "chapata-jamon-queso",
+    "name": "Chapata Jamón Y Queso",
+    "description": "Jamón, queso, lechuga y jitomate (165 g)",
+    "price": 80,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "platillo",
+    "available": true
+
+  },
+                {
+    "id": "chapata-pepe",
+    "name": "Chapata Pepe",
+    "description": "Peperoni, queso, lechuga y jitomate (165 g)",
+    "price": 70,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "platillo",
+    "available": true
+
+  },
+                  {
+    "id": "buster-burger",
+    "name": "Buster Burger",
+    "description": "Bagel, res, jamón, manchego y vegetales (270 g)",
+    "price": 85,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "platillo",
+    "available": true
+
+  },
+    {
+    "id": "dedos-queso-tequeños",
+    "name": "Dedos De Queso Tequeños",
+    "description": "Capeado crujiete y manchego (135 g)",
+    "price": 5,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "platillo",
+    "available": true
+
+  },
+      {
+    "id": "banderilla-guau",
+    "name": "Banderilla Guau",
+    "description": "Salchicha de pollo capeado con miel (120 g)",
+    "price": 31,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "snack",
+    "available": true
+
+  },
+        {
+    "id": "sandwich-panela-espinaca",
+    "name": "Sándwich De Panela Y Espinaca",
+    "description": "Pan de masa madre, panela, espinaca fresca (180 g)",
+    "price": 55,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "platillo",
+    "available": true
+
+  },
+          {
+    "id": "sandwich-jamon-queso",
+    "name": "Sándwich De Jamón Y Queso",
+    "description": "Pan de masa madre, jamón y queso Manchego (190 g)",
+    "price": 45,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "platillo",
+    "available": true
+
+  },
+            {
+    "id": "ensalada-milanesa-pollo",
+    "name": "Ensalada De Milanesa De Pollo",
+    "description": "Lechuga, espinaca, jitomate, panela, crutón (230 g)",
+    "price": 75,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "platillo",
+    "available": true
+
+  },
+              {
+    "id": "ensalada-atun",
+    "name": "Ensalada De Atún",
+    "description": "Lechuga, espinaca, jitomate, panela, crutón (230 g)",
+    "price": 75,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "platillo",
+    "available": true
+
+  },
+                {
+    "id": "avena",
+    "name": "Avena",
+    "description": "Canela, miel de agave, manzana o plátano (160 g)",
+    "price": 60,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "snack",
+    "available": true
+
+  },
+                  {
+    "id": "bionico",
+    "name": "Biónico",
+    "description": "Yoghurt, melón, manzana, plátano, granola (180 g)",
+    "price": 60,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "snack",
+    "available": true
+
+  },
+                    {
+    "id": "platano-chiapas",
+    "name": "Plátano Chiapas",
+    "description": "Fruta de temporada",
+    "price": 15,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "snack",
+    "available": true
+
+  },
+                      {
+    "id": "manzana-golden",
+    "name": "Manzana Golden",
+    "description": "Fruta de temporada",
+    "price": 15,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "snack",
+    "available": true
+
+  },
+                        {
+    "id": "manzana-golden",
+    "name": "Manzana Golden",
+    "description": "Fruta de temporada",
+    "price": 15,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "snack",
+    "available": true
+
+  },
+
+
+
+
+  
+                        {
+    "id": "cafe-americano",
+    "name": "Café Americano",
+    "description": "Delicioso cafe ñam ",
+    "price": 35,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
     "category": "bebida",
     "available": true
 
   },
-  {
-    "id": "snak",
-    "name": "wafle 2",
-    "description": "XD",
-    "price": 18,
+                          {
+    "id": "espresso-americano",
+    "name": "Espresso Americano",
+    "description": "Delicioso cafe ñam ",
+    "price": 40,
     "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
-    "category": "snack",
+    "category": "bebida",
     "available": true
 
   },
-    {
-    "id": "burg-test",
-    "name": "burg test",
-    "description": "XD",
-    "price": 18,
+                            {
+    "id": "cafe-late",
+    "name": "Café Late",
+    "description": "Delicioso cafe ñam ",
+    "price": 50,
     "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
-    "category": "snack",
+    "category": "bebida",
+    "available": true
+
+  },
+                              {
+    "id": "late-vainilla",
+    "name": "Late Vainilla",
+    "description": "Delicioso cafe ñam ",
+    "price": 63,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                {
+    "id": "capuchino-italiano",
+    "name": "Capuchino Italiano",
+    "description": "Delicioso cafe ñam ",
+    "price": 52,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                  {
+    "id": "moka-blanco",
+    "name": "Moka / Moka Blanco",
+    "description": "Delicioso moka jj ",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                    {
+    "id": "cafe-caramelo",
+    "name": "Café Caramelo",
+    "description": "Delicioso café caramelon ",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                      {
+    "id": "espresso",
+    "name": "Espresso",
+    "description": "Delicioso café caramelon ",
+    "price": 37,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                        {
+    "id": "chocolate",
+    "name": "Chocolate",
+    "description": "Delicioso chocolate buster",
+    "price": 55,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                          {
+    "id": "cacao",
+    "name": "Cacao",
+    "description": "Delicioso cacao buster",
+    "price": 55,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                            {
+    "id": "te",
+    "name": "Té",
+    "description": "Delicioso cacao buster",
+    "price": 35,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                              {
+    "id": "hazlo-latte",
+    "name": "Hazlo Latte",
+    "description": "Delicioso cacao buster",
+    "price": 12,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                {
+    "id": "tisana",
+    "name": "Tisana",
+    "description": "Delicioso cacao buster",
+    "price": 60,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                  {
+    "id": "chai",
+    "name": "Chai",
+    "description": "Delicioso chai buster",
+    "price": 70,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                    {
+    "id": "Matcha",
+    "name": "Matcha",
+    "description": "Delicioso matcha buster",
+    "price": 70,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                      {
+    "id": "taro",
+    "name": "Taro",
+    "description": "Delicioso Taro buster",
+    "price": 76,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                        {
+    "id": "limonada-rosa",
+    "name": "Limonada rosa",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 41,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                          {
+    "id": "helado-chocolate",
+    "name": "Helado Chocolate",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 57,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                            {
+    "id": "helado-chai",
+    "name": "Helado Chai",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 72,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                              {
+    "id": "helado-matcha",
+    "name": "Helado Matcha",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 72,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                {
+    "id": "helado-taro",
+    "name": "Helado Taro",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 78,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                  {
+    "id": "helado-americano",
+    "name": "Helado Americano",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 37,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                    {
+    "id": "helado-late",
+    "name": "Helado Americano",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 55,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                      {
+    "id": "helado-late-vainilla",
+    "name": "Helado Late Vainilla",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                        {
+    "id": "moka-frio",
+    "name": "Moka / Moka Blanco frío",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 70,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                          {
+    "id": "helado-cafe-caramelo",
+    "name": "Helado Café Caramelo",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 70,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                            {
+    "id": "frape-cafe",
+    "name": "Frapé Café",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 53,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                              {
+    "id": "moka-frape",
+    "name": "Moka",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                {
+    "id": "moka-blanco-frape",
+    "name": "Moka Blanco",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                  {
+    "id": "caramelo-frape-cafeina",
+    "name": "Frapé De Caramelo (Con cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 71,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                    {
+    "id": "cookies-and-cream-frape-cafeina",
+    "name": "Frapé De Cookies & Cream (con cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 74,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                      {
+    "id": "smoothie-frape-no-cafeina",
+    "name": "Smoothie (Frapé sin cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 48,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                        {
+    "id": "yogurth-frape-no-cafeina",
+    "name": "Yogurth (Frapé sin cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                        {
+    "id": "chai-frape-no-cafeina",
+    "name": "Chai(Frapé sin cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                          {
+    "id": "chocolate-frape-no-cafeina",
+    "name": "Chocolate (Frapé sin cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                            {
+    "id": "vainilla-frape-no-cafeina",
+    "name": "Vainilla (Frapé sin cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                              {
+    "id": "caramelo-frape-no-cafeina",
+    "name": "Caramelo (Frapé sin cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                                {
+    "id": "taro-frape-no-cafeina",
+    "name": "Taro (Frapé sin cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                                  {
+    "id": "licuado-chocolate-frape-no-cafeina",
+    "name": "Licuado De Chocolate (Frapé sin cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                                    {
+    "id": "licuado-platano-frape-no-cafeina",
+    "name": "Licuado De Platáno (Frapé sin cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                                      {
+    "id": "licuado-fresa-frape-no-cafeina",
+    "name": "Licuado De Fresa (Frapé sin cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                                        {
+    "id": "licuado-mango-frape-no-cafeina",
+    "name": "Licuado De Mango (Frapé sin cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 65,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                                          {
+    "id": "licuado-manzana-frape-no-cafeina",
+    "name": "Licuado De Manzana (Frapé sin cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 74,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
+    "available": true
+
+  },
+                                                                                                          {
+    "id": "licuado-avena-frape-no-cafeina",
+    "name": "Licuado De Avena (Frapé sin cafeína)",
+    "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
+    "price": 55,
+    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "category": "bebida",
     "available": true
 
   }
+
+
+
+
+
+
+
+
+
 ]
