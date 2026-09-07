@@ -4,7 +4,7 @@
     "name": "Bagel De Pavo Y Queso",
     "description": "Jitomate y lechuga (250g)",
     "price": 60,
-    "image": "https://www.seriouseats.com/thmb/QJZXQHDXBfTiUSKstQ1uskJc31g=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/SEA-best-grilled-hot-dogs-recipe-hero-02-9d245c0d43874a3da13a7228682b0dce.jpg",
+    "image": "https://snapcalorie-webflow-website.s3.us-east-2.amazonaws.com/media/food_pics_v2/medium/bagel_with_cheese_and_ham.jpg",
     "category": "platillo",
     "available": false
 
@@ -14,7 +14,7 @@
     "name": "Croissant De Pavo Y Queso",
     "description": "Jitomate y lechuga (230 G)",
     "price": 55,
-    "image": "https://www.seriouseats.com/thmb/QJZXQHDXBfTiUSKstQ1uskJc31g=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/SEA-best-grilled-hot-dogs-recipe-hero-02-9d245c0d43874a3da13a7228682b0dce.jpg",
+    "image": "https://snapcalorie-webflow-website.s3.us-east-2.amazonaws.com/media/food_pics_v2/medium/turkey_cheese_croissant.jpg",
     "category": "platillo",
     "available": true
 
@@ -24,7 +24,7 @@
     "name": "Baguette De Pollo Y Pomodoro",
     "description": "Gouda y mix de vegetales (190g)",
     "price": 70,
-    "image": "https://www.seriouseats.com/thmb/QJZXQHDXBfTiUSKstQ1uskJc31g=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/SEA-best-grilled-hot-dogs-recipe-hero-02-9d245c0d43874a3da13a7228682b0dce.jpg",
+    "image": "https://img77.uenicdn.com/image/upload/v1543485038/service_images/shutterstock_1135777637.jpg",
     "category": "platillo",
     "available": true
 
@@ -34,7 +34,7 @@
     "name": "Chilaquiles Naturales",
     "description": "Salsa verde / roja, crema, queso (265 g)",
     "price": 65,
-    "image": "https://www.seriouseats.com/thmb/QJZXQHDXBfTiUSKstQ1uskJc31g=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/SEA-best-grilled-hot-dogs-recipe-hero-02-9d245c0d43874a3da13a7228682b0dce.jpg",
+    "image": "https://patijinich.com/es/wp-content/uploads/sites/3/2017/07/207-chilaquiles-verdes.jpg",
     "category": "platillo",
     "available": true
 
@@ -44,7 +44,7 @@
     "name": "Chilaquiles Con Milanesa De Pollo",
     "description": "Salva verde / roja, pechuga de pollo (315 g)",
     "price": 98,
-    "image": "https://t4.ftcdn.net/jpg/06/67/21/49/360_F_667214967_7FIteIo4hLy3aNlpaMl3UZ8NO7IaZWJS.jpg",
+    "image": "https://tb-static.uber.com/prod/image-proc/processed_images/f37fc2b232b0b6081dc918aabeaa74ba/a19bb09692310dfd41e49a96c424b3a6.jpeg",
     "category": "platillo",
     "available": true
 
@@ -54,7 +54,7 @@
     "name": "Molletec (2)",
     "description": "Queso, frijoles y salsa mexicana (250 g)",
     "price": 45,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.sargento.com/assets/Uploads/Recipe/Image/Molletes-v2.jpg",
     "category": "platillo",
     "available": true
 
@@ -64,7 +64,7 @@
     "name": "Pita Pizza Jamón Y Queso",
     "description": "Base integral, ragu, jamón y mozzarela (145 g)",
     "price": 50,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://newluxbrand.com/recetas/wp-content/uploads/2022/01/pizza-jamon-y-queso-Newlux.jpg",
     "category": "platillo",
     "available": true
 
@@ -75,7 +75,7 @@
     "name": "Pita Pizza Jamón Peperoni",
     "description": "Base integral, ragu, peperoni y mozzarela (145 g)",
     "price": 55,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://amindfullmom.com/wp-content/uploads/2024/01/Pita-Pizzas.jpg",
     "category": "platillo",
     "available": true
 
@@ -85,7 +85,7 @@
     "name": "Nohoch Dog",
     "description": "Carne de res y salsa mexicana (170 g)",
     "price": 55,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://selecciones.com.mx/wp-content/uploads/2025/04/Dogo-Norteno-con-Mimolette-Una-Fusion-de-Sabores-que-Debes-Probar.png",
     "category": "platillo",
     "available": true
 
@@ -95,17 +95,17 @@
     "name": "Hamburguesa",
     "description": "Res, manchego y mix de vegetales (170g)",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://i.blogs.es/cafb32/whoper/1200_900.jpg",
     "category": "platillo",
     "available": true
 
   },
             {
     "id": "hamburguesa-doble",
-    "name": "Hamburguesa",
+    "name": "Hamburguesa Doble",
     "description": "Res, manchego y mix de vegetales (210g)",
     "price": 80,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.elytienda.com/cdn/shop/products/hamburguesa_doble_carne.jpg?v=1706491389",
     "category": "platillo",
     "available": true
 
@@ -115,7 +115,7 @@
     "name": "Chapata Jamón Y Queso",
     "description": "Jamón, queso, lechuga y jitomate (165 g)",
     "price": 80,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://cdn7.kiwilimon.com/recetaimagen/41019/960x640/55347.jpg.jpg",
     "category": "platillo",
     "available": true
 
@@ -125,7 +125,7 @@
     "name": "Chapata Pepe",
     "description": "Peperoni, queso, lechuga y jitomate (165 g)",
     "price": 70,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://tb-static.uber.com/prod/image-proc/processed_images/82462da88aae072d06b1ef6e2745fb08/a1681d67ebe55c76c3af5f401619c278.jpeg",
     "category": "platillo",
     "available": true
 
@@ -135,7 +135,7 @@
     "name": "Buster Burger",
     "description": "Bagel, res, jamón, manchego y vegetales (270 g)",
     "price": 85,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://umamigirl.com/wp-content/uploads/2024/01/Cheddar-Burger-Umami-Girl-1200-4.jpg",
     "category": "platillo",
     "available": true
 
@@ -145,7 +145,7 @@
     "name": "Dedos De Queso Tequeños",
     "description": "Capeado crujiete y manchego (135 g)",
     "price": 5,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://s2.ppllstatics.com/diariovasco/www/multimedia/202107/26/media/cortadas/tequenos-RgexwcsnDJ7476e9yVg239I-1248x770@Diario%20Vasco.jpg",
     "category": "platillo",
     "available": true
 
@@ -165,7 +165,7 @@
     "name": "Sándwich De Panela Y Espinaca",
     "description": "Pan de masa madre, panela, espinaca fresca (180 g)",
     "price": 55,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.arise-app.com/images/dishes/es/sandwich-de-pavo-y-queso-con-espinacas-15lqx5.webp",
     "category": "platillo",
     "available": true
 
@@ -175,7 +175,7 @@
     "name": "Sándwich De Jamón Y Queso",
     "description": "Pan de masa madre, jamón y queso Manchego (190 g)",
     "price": 45,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.bimbo.es/uploads/11-sandwich-con-queso-lechuga-tomate-mayonesa-y-pechuga-de-pavo-a-las-finas-hierbas.webp",
     "category": "platillo",
     "available": true
 
@@ -185,7 +185,7 @@
     "name": "Ensalada De Milanesa De Pollo",
     "description": "Lechuga, espinaca, jitomate, panela, crutón (230 g)",
     "price": 75,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://es.cravingsjournal.com/wp-content/uploads/2020/04/milanesa-de-pavo-3.jpg",
     "category": "platillo",
     "available": true
 
@@ -195,7 +195,7 @@
     "name": "Ensalada De Atún",
     "description": "Lechuga, espinaca, jitomate, panela, crutón (230 g)",
     "price": 75,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.homecookingadventure.com/wp-content/uploads/2026/02/Cottage-Cheese-Tuna-Salad-main1.webp",
     "category": "platillo",
     "available": true
 
@@ -205,7 +205,7 @@
     "name": "Avena",
     "description": "Canela, miel de agave, manzana o plátano (160 g)",
     "price": 60,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480/img/recipe/ras/Assets/b9382ffa6fa36ee0709f1eadce5b967a/Derivates/03302c131a0d40b11d300e14fd9a59397fa009d7.jpg",
     "category": "snack",
     "available": true
 
@@ -215,7 +215,7 @@
     "name": "Biónico",
     "description": "Yoghurt, melón, manzana, plátano, granola (180 g)",
     "price": 60,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://mexicanmademeatless.com/wp-content/uploads/2023/12/Bionicos-Mexican-Fruit-Bowls.jpg",
     "category": "snack",
     "available": true
 
@@ -225,7 +225,7 @@
     "name": "Plátano Chiapas",
     "description": "Fruta de temporada",
     "price": 15,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://yesfarmers.com/wp-content/uploads/2021/07/MUZ.jpg",
     "category": "snack",
     "available": true
 
@@ -235,17 +235,17 @@
     "name": "Manzana Golden",
     "description": "Fruta de temporada",
     "price": 15,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.lacomer.com.mx/superc/img_art/1045_3.jpg",
     "category": "snack",
     "available": true
 
   },
                         {
-    "id": "manzana-golden",
-    "name": "Manzana Golden",
+    "id": "manzana-roja",
+    "name": "Manzana Roja",
     "description": "Fruta de temporada",
     "price": 15,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.lacomer.com.mx/superc/img_art/1113_3.jpg",
     "category": "snack",
     "available": true
 
@@ -258,9 +258,9 @@
                         {
     "id": "cafe-americano",
     "name": "Café Americano",
-    "description": "Delicioso cafe ñam ",
+    "description": "Delicioso cafe  ",
     "price": 35,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://imag.bonviveur.com/cafe-americano-en-la-taza.jpg",
     "category": "bebida",
     "available": true
 
@@ -268,9 +268,9 @@
                           {
     "id": "espresso-americano",
     "name": "Espresso Americano",
-    "description": "Delicioso cafe ñam ",
+    "description": "Delicioso cafe ",
     "price": 40,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://placerydelirio.com/cdn/shop/files/AMERICANO-CAL-WEB-P_D-1_503x503.jpg?v=1748031032",
     "category": "bebida",
     "available": true
 
@@ -280,7 +280,7 @@
     "name": "Café Late",
     "description": "Delicioso cafe ñam ",
     "price": 50,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://cdn7.kiwilimon.com/recetaimagen/36986/640x640/46349.jpg.jpg",
     "category": "bebida",
     "available": true
 
@@ -290,7 +290,7 @@
     "name": "Late Vainilla",
     "description": "Delicioso cafe ñam ",
     "price": 63,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://herbsandflour.com/wp-content/uploads/2025/08/Vanilla-Latte-Recipe.jpg",
     "category": "bebida",
     "available": true
 
@@ -300,7 +300,7 @@
     "name": "Capuchino Italiano",
     "description": "Delicioso cafe ñam ",
     "price": 52,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://as1.ftcdn.net/jpg/03/02/12/46/1000_F_302124697_ev8r1k2wW2bX1YffiuJS0poeUYn5jsBD.jpg",
     "category": "bebida",
     "available": true
 
@@ -310,7 +310,7 @@
     "name": "Moka / Moka Blanco",
     "description": "Delicioso moka jj ",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.nespresso.com/coffee-blog/sites/default/files/2024-08/COFFEECAPSULES_VERTUOLINE_BEAUTYSHOTS_ATMOSPHERES_VERTUOLINE_RECIPES_NUTTYREVERSOCOFFEE_30072015181750914%5B1%5D.jpg",
     "category": "bebida",
     "available": true
 
@@ -320,7 +320,7 @@
     "name": "Café Caramelo",
     "description": "Delicioso café caramelon ",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.cremashop.eu/content/www.crema.fi/media/recipe/caramel-macchiato/chailatte_d3bd53aba64fc0b8de54b56519201dd4.jpg",
     "category": "bebida",
     "available": true
 
@@ -330,7 +330,7 @@
     "name": "Espresso",
     "description": "Delicioso café caramelon ",
     "price": 37,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://editorialtelevisa.brightspotcdn.com/wp-content/uploads/2013/04/cafe-espresso.jpg",
     "category": "bebida",
     "available": true
 
@@ -340,7 +340,7 @@
     "name": "Chocolate",
     "description": "Delicioso chocolate buster",
     "price": 55,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://cdn7.kiwilimon.com/recetaimagen/38737/640x640/49817.jpg.webp",
     "category": "bebida",
     "available": true
 
@@ -350,7 +350,7 @@
     "name": "Cacao",
     "description": "Delicioso cacao buster",
     "price": 55,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiAdJRE_E-jb7jnWKiKfxNojX6ln766JVLxMmCuU08esIlOhVt1aPRYgI&s=10",
     "category": "bebida",
     "available": true
 
@@ -360,7 +360,7 @@
     "name": "Té",
     "description": "Delicioso cacao buster",
     "price": 35,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.cafe-mx.com/blog/app/assets/media/2021/01/datos_curiosos_sobre_el_te.jpg",
     "category": "bebida",
     "available": true
 
@@ -370,7 +370,7 @@
     "name": "Hazlo Latte",
     "description": "Delicioso cacao buster",
     "price": 12,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://media.gourmetdemexico.com.mx/2025/01/latte-en-la-cdmx-1-1024x683.jpg",
     "category": "bebida",
     "available": true
 
@@ -380,7 +380,7 @@
     "name": "Tisana",
     "description": "Delicioso cacao buster",
     "price": 60,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ14ByCxLiAwzf2i7U4W-UVZ-8loFbzthHH19BexesRB27N393S-gDivX4&s=10",
     "category": "bebida",
     "available": true
 
@@ -390,7 +390,7 @@
     "name": "Chai",
     "description": "Delicioso chai buster",
     "price": 70,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyiPeQ0qC7XQDqA6TY4OlsgXp9bwKVckLIXQ_oRIAk5wO2WJsayqM97cU&s=10",
     "category": "bebida",
     "available": true
 
@@ -400,7 +400,7 @@
     "name": "Matcha",
     "description": "Delicioso matcha buster",
     "price": 70,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiqzC9CL8zy6zfFQBDM7wsL7ZR9ImVEPYuaIFUIND51lf171mzETisSVCC&s=10",
     "category": "bebida",
     "available": true
 
@@ -410,7 +410,7 @@
     "name": "Taro",
     "description": "Delicioso Taro buster",
     "price": 76,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://media.zenfs.com/es/animal_gourmet_468/187cc16e0600d78074509ad36278a6b5",
     "category": "bebida",
     "available": true
 
@@ -420,7 +420,7 @@
     "name": "Limonada rosa",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 41,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWteXyPNo9OncGeJ76lh5gnux1d0S1Eatwq7ygDWqB7OjlJniW9lqFAHjr&s=10",
     "category": "bebida",
     "available": true
 
@@ -430,7 +430,7 @@
     "name": "Helado Chocolate",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 57,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiHm7tX17zE2qP-hQsny8_deiLDrMJaO2YREXiT_4JsTIJC9bub-9mnE0&s=10",
     "category": "bebida",
     "available": true
 
@@ -440,7 +440,7 @@
     "name": "Helado Chai",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 72,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://tardedetortasfritas.com/wp-content/uploads/2020/06/dsc_0979.jpg",
     "category": "bebida",
     "available": true
 
@@ -450,7 +450,7 @@
     "name": "Helado Matcha",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 72,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn8_CjSXHZwoyoVxDjVGPheMgzEAWFkrkXAFLHhRsuj-olrfYH0PaGu5w&s=10",
     "category": "bebida",
     "available": true
 
@@ -460,7 +460,7 @@
     "name": "Helado Taro",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 78,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.eis-perfecto.de/wp-content/uploads/2024/04/TARO-Biskuitkuchen-Eis-848x477.jpg",
     "category": "bebida",
     "available": true
 
@@ -470,17 +470,17 @@
     "name": "Helado Americano",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 37,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://media.istockphoto.com/id/689968406/es/foto/cucharadas-de-sabroso-hielo-de-vainilla-en-un-taz%C3%B3n-sobre-la-mesa-r%C3%BAstica-de-madera-azul-closeup.jpg?s=612x612&w=0&k=20&c=DNxZb1ZUmjpNScs2egBODtSocm3grMadwx4SLzCVPAc=",
     "category": "bebida",
     "available": true
 
   },
                                                                     {
     "id": "helado-late",
-    "name": "Helado Americano",
+    "name": "Helado Vainilla",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 55,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://static.bainet.es/clip/4896efa6-ec52-4ffe-ab1c-9b789353e444_source-aspect-ratio_1600w_0.jpg",
     "category": "bebida",
     "available": true
 
@@ -490,7 +490,7 @@
     "name": "Helado Late Vainilla",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzc8Dhplp2aVALhjrH7ZKwQw4lZKJVBL9ncRg66OC1fsywQdhH97PbKRQm&s=10",
     "category": "bebida",
     "available": true
 
@@ -500,7 +500,7 @@
     "name": "Moka / Moka Blanco frío",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 70,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSp4AZ3kj7YqbuLuubzWssHPAGcVJdqQcmQIuxVa2zMQ-xe5G4R62FepynX&s=10",
     "category": "bebida",
     "available": true
 
@@ -510,7 +510,7 @@
     "name": "Helado Café Caramelo",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 70,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSezcsPYmszUIyUvWFl_B2j8Zvg4dE525lzlo9c4lZAQYmlqbX3Yqi4B8FZ&s=10",
     "category": "bebida",
     "available": true
 
@@ -520,7 +520,7 @@
     "name": "Frapé Café",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 53,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://imag.bonviveur.com/degustando-cafe-frappe.jpg",
     "category": "bebida",
     "available": true
 
@@ -530,7 +530,7 @@
     "name": "Moka",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://rockyspizzeria.mx/wp-content/uploads/2023/12/moka.jpg",
     "category": "bebida",
     "available": true
 
@@ -540,7 +540,7 @@
     "name": "Moka Blanco",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsc2UnHag6YW2EiiOOkDFrLBWXlLpXaRWUhkuYCOpsZhT3S3u8YAS--QiU&s=10",
     "category": "bebida",
     "available": true
 
@@ -550,7 +550,7 @@
     "name": "Frapé De Caramelo (Con cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 71,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.cocinadelirante.com/sites/default/files/images/2024/07/frappe-de-cafe-y-caramelo-como-el-de-starbucks.jpg",
     "category": "bebida",
     "available": true
 
@@ -560,7 +560,7 @@
     "name": "Frapé De Cookies & Cream (con cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 74,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.recetasnestle.com.mx/sites/default/files/srh_recipes/5e4e95ec1b30de9c438dccaff15a1469.jpg",
     "category": "bebida",
     "available": true
 
@@ -570,7 +570,7 @@
     "name": "Smoothie (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 48,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.baque.com/wp-content/uploads/2018/01/frappe-1.jpg",
     "category": "bebida",
     "available": true
 
@@ -580,7 +580,7 @@
     "name": "Yogurth (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_bSaolZAwzC-0qFY5eTelg-RlrgN2Ks8jbg7k8taC_yNPWds8nvHK-9I&s=10",
     "category": "bebida",
     "available": true
 
@@ -590,7 +590,7 @@
     "name": "Chai(Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFl-tdHcgp7a4u8jh8G7GVIDJGBmcqz7dBF8_KTVUmcWt6GMNPO29Fh6Kl&s=10",
     "category": "bebida",
     "available": true
 
@@ -600,7 +600,7 @@
     "name": "Chocolate (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.recetassinlactosa.com//wp-content/uploads/2017/06/Frappuccino-sin-lactosa-v2.jpg",
     "category": "bebida",
     "available": true
 
@@ -610,7 +610,7 @@
     "name": "Vainilla (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://snapcalorie-webflow-website.s3.us-east-2.amazonaws.com/media/food_pics_v2/medium/vanilla_frappuccino.jpg",
     "category": "bebida",
     "available": true
 
@@ -620,7 +620,7 @@
     "name": "Caramelo (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.cocinadelirante.com/800x600/filters:format(webp):quality(75)/sites/default/files/images/2024/10/malteada-caramelo.jpg",
     "category": "bebida",
     "available": true
 
@@ -630,7 +630,7 @@
     "name": "Taro (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://universo-gastronomico.com.mx/wp-content/uploads/2025/07/TARO_5.jpg",
     "category": "bebida",
     "available": true
 
@@ -640,7 +640,7 @@
     "name": "Licuado De Chocolate (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://miarevista.okdiario.com/wp-content/uploads/sites/3/2022/07/26/62e03b483399c.jpeg",
     "category": "bebida",
     "available": true
 
@@ -650,7 +650,7 @@
     "name": "Licuado De Platáno (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.chiquita.es/wp-content/uploads/2022/07/V-220706_JUL_Coffee-protein-shake-with-peanut-butter-282x282.jpg",
     "category": "bebida",
     "available": true
 
@@ -660,7 +660,7 @@
     "name": "Licuado De Fresa (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://www.recetasnestle.com.mx/sites/default/files/srh_recipes/84445cfec4a0ba3b51c90f02680a9e7b.jpg",
     "category": "bebida",
     "available": true
 
@@ -670,7 +670,7 @@
     "name": "Licuado De Mango (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://sazonsula.com/wp-content/uploads/2022/03/receta-frappe-de-mango-sazon-sula.jpg",
     "category": "bebida",
     "available": true
 
@@ -680,7 +680,7 @@
     "name": "Licuado De Manzana (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 74,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8sLw1Gv_SB2D8eLTSPmqQg107vtl6DS5POVFWIL8_QASr3MIgtGWS2sbk&s=10",
     "category": "bebida",
     "available": true
 
@@ -690,7 +690,7 @@
     "name": "Licuado De Avena (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 55,
-    "image": "https://elmandadito.mx/wp-content/uploads/2023/09/Recetas-Waffles-1000x565.jpeg",
+    "image": "https://recetasdecocina.elmundo.es/wp-content/uploads/2025/06/batido-de-avena.jpg",
     "category": "bebida",
     "available": true
 

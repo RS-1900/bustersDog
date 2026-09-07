@@ -45,7 +45,12 @@ export default function ProductDetailScreen() {
 
           {/* disponibilidad iconito */}
           <View style={styles.availabilityBadge}>
-            <Text style={styles.availabilityText}>
+            <Text
+              style={[
+                styles.availabilityText,
+                product.available === false && styles.unavailableText,
+              ]}
+            >
               ● {product.available !== false ? 'Disponible' : 'Agotado'}
             </Text>
           </View>
@@ -133,6 +138,9 @@ const styles = StyleSheet.create({
     color: '#137333',
     fontWeight: '600',
     fontSize: 12,
+  },
+  unavailableText: {
+    color: '#D93025',
   },
   sectionTitle: {
     fontSize: 16,
