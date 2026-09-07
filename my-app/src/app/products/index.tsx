@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
+import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ProductCard } from '../components/ProductCard'
 import { useProductStore } from '../stores/useProductStore';
@@ -17,6 +18,7 @@ export default function ProductsScreen() {
   const products = useProductStore((state) => state.products);
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>('platillo');
   const [searchQuery, setSearchQuery] = useState('');
+  const [menuVisible, setMenuVisible] = useState(false);
 
   //filtracion d productos
   const filteredProducts = products.filter((item) => {
@@ -24,7 +26,6 @@ export default function ProductsScreen() {
     const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
-
   const categories: { label: string; key: CategoryType }[] = [
     { label: 'Platillo', key: 'platillo' },
     { label: 'Bebida', key: 'bebida' },
@@ -44,7 +45,13 @@ export default function ProductsScreen() {
           <View>
             {/* Header */}
             <View style={styles.header}>
-              <Text style={styles.iconText}>☰</Text>
+              <TouchableOpacity
+                accessibilityLabel="Abrir menú de navegación"
+                onPress={() => setMenuVisible(true)}
+                style={styles.iconButton}
+              >
+                <Text style={styles.iconText}>☰</Text>
+              </TouchableOpacity>
               <Image
                 source={require('../../../assets/logo.jpg')}
                 style={styles.logoImage}
@@ -88,6 +95,34 @@ export default function ProductsScreen() {
         }
         renderItem={({ item }) => <ProductCard product={item} />}
       />
+
+      {menuVisible && (
+        <View style={styles.menuOverlay}>
+          <View style={styles.menuPanel}>
+            <Text style={styles.menuTitle}>Menú</Text>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => setMenuVisible(false)}
+            >
+              <Text style={styles.menuItemText}>Productos</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => {
+                setMenuVisible(false);
+                router.push('/favorites');
+              }}
+            >
+              <Text style={styles.menuItemText}>Favoritos</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            accessibilityLabel="Cerrar menú"
+            style={styles.menuBackdrop}
+            onPress={() => setMenuVisible(false)}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -114,6 +149,9 @@ const styles = StyleSheet.create({
   iconText: { //barra de hamburguesa
     fontSize: 24,
     color: '#C87D0E',
+  },
+  iconButton: {
+    padding: 8,
   },
   logoImage: { //logo d perro
     width: 60,
@@ -163,5 +201,43 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#8E8E93',
     fontSize: 18,
+  },
+  menuOverlay: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    flexDirection: 'row',
+  },
+  menuBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.35)',
+  },
+  menuPanel: {
+    width: 260,
+    paddingTop: 56,
+    paddingHorizontal: 24,
+    backgroundColor: '#FFFFFF',
+    elevation: 8,
+    shadowColor: '#000000',
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+  },
+  menuTitle: {
+    marginBottom: 24,
+    color: '#C87D0E',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  menuItem: {
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#EEEEEE',
+  },
+  menuItemText: {
+    color: '#1C1C1E',
+    fontSize: 17,
+    fontWeight: '600',
   },
 });

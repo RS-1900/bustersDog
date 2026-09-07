@@ -22,6 +22,7 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
         <Stack.Screen name="products/index" />
+          <Stack.Screen name="favorites" />
       </Stack>
     </ThemeProvider>
   );
