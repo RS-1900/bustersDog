@@ -56,7 +56,10 @@ export default function ProductsScreen() {
                 source={require('../../../assets/logo.jpg')}
                 style={styles.logoImage}
               />
-              <Text style={styles.iconText}>🛒</Text>
+              <Image 
+                        source={require("../../../assets/carro.png")}
+                        style={styles.carro}
+                        />
             </View>
 
             {/* headline */}
@@ -64,7 +67,7 @@ export default function ProductsScreen() {
 
             {/* barra de busqueda */}
             <View style={styles.searchContainer}>
-              <Text>🔍</Text>
+              <Text style={styles.searchIcon}>⌕</Text>
               <TextInput
                 placeholder="Buscar..."
                 placeholderTextColor="#8E8E93"
@@ -240,4 +243,16 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '600',
   },
+  searchIcon: {
+    color: '#1C1C1E',
+    fontSize: 29,
+    lineHeight: 29,
+    marginRight: 8,
+    transform: [{ rotate: '-20deg' }],
+  },
+    carro: {
+    width: 30,
+    height: 60,
+    resizeMode: 'contain',
+  }
 });

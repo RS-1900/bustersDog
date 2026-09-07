@@ -100,8 +100,10 @@ const styles = StyleSheet.create({
   productImage: {
     width: 380,
     height: 290,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     marginVertical: 10,
+    borderRadius: 30,
+    overflow: 'hidden'
   },
   detailsCard: {
     width: '100%',

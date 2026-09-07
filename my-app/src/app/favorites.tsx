@@ -39,7 +39,11 @@ export default function FavoritesScreen() {
           accessibilityLabel="Carrito de compras"
           style={styles.headerButton}
         >
-          <Text style={styles.cartIcon}>🛒</Text>
+          <Image 
+          source={require("../../assets/carro.png")}
+          style={styles.basura}
+          />
+
         </TouchableOpacity>
       </View>
 
@@ -49,7 +53,7 @@ export default function FavoritesScreen() {
         <Text style={styles.searchIcon}>⌕</Text>
         <TextInput
           placeholder="Buscar..."
-          placeholderTextColor="#333333"
+          placeholderTextColor="#8E8E93"
           value={searchQuery}
           onChangeText={setSearchQuery}
           style={styles.searchInput}
@@ -94,7 +98,11 @@ export default function FavoritesScreen() {
                 onPress={() => toggleFavorite(item.id)}
                 style={styles.deleteButton}
               >
-                <Text style={styles.deleteIcon}>🗑</Text>
+
+          <Image 
+          source={require("../../assets/basurero_amarillo.png")}
+          style={styles.basura}
+          />
               </TouchableOpacity>
             </View>
           )}
@@ -149,7 +157,7 @@ const styles = StyleSheet.create({
     marginBottom: 44,
     paddingHorizontal: 18,
     borderRadius: 24,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#F2F2F7',
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -242,4 +250,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
   },
+  basura: {
+    width: 30,
+    height: 60,
+    resizeMode: 'contain',
+  }
 });
