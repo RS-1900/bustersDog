@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useProductStore } from "../stores/useProductStore";
@@ -7,6 +7,8 @@ export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const products = useProductStore((state) => state.products);
   const toggleFavorite = useProductStore((state) => state.toggleFavorite);
+  const addToCart = useProductStore((state) => state.addToCart);
+  const [selectedSize, setSelectedSize] = useState('M');
 
   const product = products.find((p) => p.id === id);
 
@@ -33,14 +35,14 @@ export default function ProductDetailScreen() {
       </View>
 
       <ScrollView contentContainerStyle={styles.content}>
-        {/* imd de producto */}
-        <Image source={{ uri: product.image }} style={styles.productImage} />
+        <View style={styles.productImageContainer}>
+          <Image source={{ uri: product.image }} style={styles.productImage} />
+        </View>
 
         {/* contenedor de info del producto */}
         <View style={styles.detailsCard}>
           <View style={styles.titleRow}>
             <Text style={styles.title}>{product.name}</Text>
-            <Text style={styles.price}>${product.price}</Text>
           </View>
 
           {/* disponibilidad iconito */}
@@ -60,6 +62,42 @@ export default function ProductDetailScreen() {
           <Text style={styles.description}>
             {product.description || 'Delicioso producto elaborado con ingredientes frescos de alta calidad.'}
           </Text>
+
+          {product.category === 'bebida' && (
+            <View style={styles.sizeSection}>
+              <Text style={styles.sectionTitle}>Tamaño</Text>
+              <View style={styles.sizeOptions}>
+                {['S', 'M', 'L'].map((size) => (
+                  <TouchableOpacity
+                    key={size}
+                    style={[styles.sizeOption, selectedSize === size && styles.sizeOptionSelected]}
+                    onPress={() => setSelectedSize(size)}
+                  >
+                    <Text style={[styles.sizeText, selectedSize === size && styles.sizeTextSelected]}>
+                      {size}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </View>
+          )}
+
+          <View style={styles.purchaseRow}>
+            <View>
+              <Text style={styles.purchaseLabel}>Precio</Text>
+              <Text style={styles.purchasePrice}>${product.price}</Text>
+            </View>
+            <TouchableOpacity
+              style={[styles.addButton, product.available === false && styles.addButtonDisabled]}
+              disabled={product.available === false}
+              onPress={() => {
+                addToCart(product.id);
+                Alert.alert('Producto agregado', `${product.name} se agregó al carrito.`);
+              }}
+            >
+              <Text style={styles.addButtonText}>Agregar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -97,11 +135,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 30,
   },
-  productImage: {
-    width: 380,
+  productImageContainer: {
+    width: '100%',
+    maxWidth: 420,
     height: 290,
-    resizeMode: 'contain',
-    marginVertical: 10,
+    marginTop: 0,
+    marginBottom: 8,
+    borderRadius: 30,
+    overflow: 'hidden',
+    backgroundColor: '#F7F7F7',
+  },
+  productImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
   },
   detailsCard: {
     width: '100%',
@@ -153,6 +200,66 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#636366',
     lineHeight: 20,
+  },
+  sizeSection: {
+    marginTop: 14,
+  },
+  sizeOptions: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  sizeOption: {
+    flex: 1,
+    height: 42,
+    borderWidth: 1,
+    borderColor: '#D8D8D8',
+    borderRadius: 9,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+  sizeOptionSelected: {
+    borderColor: '#FFAE34',
+    backgroundColor: '#FFF8EC',
+  },
+  sizeText: {
+    fontSize: 14,
+    color: '#383838',
+  },
+  sizeTextSelected: {
+    color: '#D8830A',
+    fontWeight: '700',
+  },
+  purchaseRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 28,
+  },
+  purchaseLabel: {
+    fontSize: 18,
+    color: '#A0A0A0',
+  },
+  purchasePrice: {
+    fontSize: 26,
+    color: '#FFAE34',
+    marginTop: 2,
+  },
+  addButton: {
+    minWidth: 125,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#FFAE34',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addButtonDisabled: {
+    backgroundColor: '#D1D1D1',
+  },
+  addButtonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: '700',
   },
   notFoundText: {
     textAlign: 'center',
