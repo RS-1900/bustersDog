@@ -140,16 +140,10 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 420,
     height: 290,
-    marginTop: 0,
-    marginBottom: 8,
-    borderRadius: 30,
-    overflow: 'hidden',
-    backgroundColor: '#F7F7F7',
-  },
-  productImage: {
-    width: '100%',
-    height: '100%',
     resizeMode: 'cover',
+    marginVertical: 10,
+    borderRadius: 30,
+    overflow: 'hidden'
   },
   detailsCard: {
     width: '100%',

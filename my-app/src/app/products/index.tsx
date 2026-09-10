@@ -57,21 +57,10 @@ export default function ProductsScreen() {
                 source={require('../../../assets/buster.png')} //logo
                 style={styles.logoImage}
               />
-              <TouchableOpacity
-                accessibilityLabel="Abrir carrito de compras"
-                onPress={() => router.push('/checkout')}
-                style={styles.cartButton}
-              >
-                <Image
-                  source={require("../../../assets/carro.png")}
-                  style={styles.carro}
-                />
-                {cartCount > 0 && (
-                  <View style={styles.cartBadge}>
-                    <Text style={styles.cartBadgeText}>{cartCount}</Text>
-                  </View>
-                )}
-              </TouchableOpacity>
+              <Image 
+                        source={require("../../../assets/carro.png")}
+                        style={styles.carro}
+                        />
             </View>
 
             {/* headline */}
@@ -289,4 +278,16 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '600',
   },
+  searchIcon: {
+    color: '#1C1C1E',
+    fontSize: 29,
+    lineHeight: 29,
+    marginRight: 8,
+    transform: [{ rotate: '-20deg' }],
+  },
+    carro: {
+    width: 30,
+    height: 60,
+    resizeMode: 'contain',
+  }
 });
