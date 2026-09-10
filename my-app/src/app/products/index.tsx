@@ -16,6 +16,7 @@ import { CategoryType } from '../types/product';
 
 export default function ProductsScreen() {
   const products = useProductStore((state) => state.products);
+  const cartCount = useProductStore((state) => state.cart.length);
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>('platillo');
   const [searchQuery, setSearchQuery] = useState('');
   const [menuVisible, setMenuVisible] = useState(false);
@@ -53,7 +54,7 @@ export default function ProductsScreen() {
                 <Text style={styles.iconText}>☰</Text>
               </TouchableOpacity>
               <Image
-                source={require('../../../assets/logo.jpg')}
+                source={require('../../../assets/buster.png')} //logo
                 style={styles.logoImage}
               />
               <Image 
@@ -70,7 +71,7 @@ export default function ProductsScreen() {
               <Text style={styles.searchIcon}>⌕</Text>
               <TextInput
                 placeholder="Buscar..."
-                placeholderTextColor="#8E8E93"
+                placeholderTextColor="#333333"
                 value={searchQuery}
                 onChangeText={setSearchQuery}
                 style={styles.searchInput}
@@ -161,6 +162,32 @@ const styles = StyleSheet.create({
     height: 60,
     resizeMode: 'contain',
   },
+  carro: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+  },
+  cartButton: {
+    position: 'relative',
+    padding: 5,
+  },
+  cartBadge: {
+    position: 'absolute',
+    top: -2,
+    right: -2,
+    minWidth: 18,
+    height: 18,
+    borderRadius: 9,
+    paddingHorizontal: 4,
+    backgroundColor: '#E0245E',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cartBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 11,
+    fontWeight: '700',
+  },
   headline: { //texto d un buen dia empieza con busters estilo
     fontSize: 20,
     fontWeight: 'bold',
@@ -169,18 +196,26 @@ const styles = StyleSheet.create({
     color: '#1C1C1E',
   },
   searchContainer: {
+    height: 46,
+    marginHorizontal: 24,
+    marginBottom: 44,
+    paddingHorizontal: 18,
+    borderRadius: 24,
+    backgroundColor: '#D9D9D9',
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F2F2F7', //contenedor d la barra de busqueda
-    borderRadius: 25,
-    paddingHorizontal: 15,
-    height: 45,
-    marginBottom: 25,
+  },
+  searchIcon: {
+    color: '#1C1C1E',
+    fontSize: 29,
+    lineHeight: 29,
+    marginRight: 8,
+    transform: [{ rotate: '-20deg' }],
   },
   searchInput: {
     flex: 1,
-    fontSize: 16, //texto de buscar tamaño
-    color: '#000000',
+    color: '#1C1C1E',
+    fontSize: 16,
   },
   categoryContainer: { //categorias platico-bebida-snak contenedor
     flexDirection: 'row',

@@ -32,12 +32,13 @@ export default function FavoritesScreen() {
           <Text style={styles.menuIcon}>☰</Text>
         </TouchableOpacity>
         <Image
-          source={require('../../assets/logo.jpg')}
+          source={require('../../assets/buster.png')} //logo
           style={styles.logo}
         />
         <TouchableOpacity
           accessibilityLabel="Carrito de compras"
           style={styles.headerButton}
+          onPress={() => router.push('/checkout')}
         >
           <Image 
           source={require("../../assets/carro.png")}
@@ -132,11 +133,11 @@ const styles = StyleSheet.create({
   menuIcon: {
     color: '#E47B1B',
     fontSize: 27,
-    lineHeight: 30,
   },
-  cartIcon: {
-    color: '#E47B1B',
-    fontSize: 27,
+  cartImage: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
   },
   title: {
     color: '#1C1C1E',
@@ -221,6 +222,11 @@ const styles = StyleSheet.create({
   deleteButton: {
     width: 28,
     alignItems: 'center',
+  },
+  deleteImage: {
+    width: 26,
+    height: 26,
+    resizeMode: 'contain',
   },
   deleteIcon: {
     color: '#E8751A',
