@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Alert } fr
 import { useLocalSearchParams, router } from 'expo-router';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useProductStore } from "../stores/useProductStore";
+
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const products = useProductStore((state) => state.products);

@@ -54,7 +54,7 @@ export default function ProductsScreen() {
                 <Text style={styles.iconText}>☰</Text>
               </TouchableOpacity>
               <Image
-                source={require('../../../assets/logo.jpg')}
+                source={require('../../../assets/buster.png')} //logo
                 style={styles.logoImage}
               />
               <TouchableOpacity

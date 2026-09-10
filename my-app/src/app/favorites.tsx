@@ -32,7 +32,7 @@ export default function FavoritesScreen() {
           <Text style={styles.menuIcon}>☰</Text>
         </TouchableOpacity>
         <Image
-          source={require('../../assets/logo.jpg')}
+          source={require('../../assets/buster.png')} //logo
           style={styles.logo}
         />
         <TouchableOpacity
