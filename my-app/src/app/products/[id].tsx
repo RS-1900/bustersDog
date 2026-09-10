@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -140,10 +140,14 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 420,
     height: 290,
-    resizeMode: 'cover',
     marginVertical: 10,
     borderRadius: 30,
     overflow: 'hidden'
+  },
+  productImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
   },
   detailsCard: {
     width: '100%',

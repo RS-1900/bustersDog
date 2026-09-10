@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -57,10 +57,21 @@ export default function ProductsScreen() {
                 source={require('../../../assets/buster.png')} //logo
                 style={styles.logoImage}
               />
-              <Image 
-                        source={require("../../../assets/carro.png")}
-                        style={styles.carro}
-                        />
+              <TouchableOpacity
+                accessibilityLabel="Abrir carrito"
+                style={styles.cartButton}
+                onPress={() => router.push('/checkout')}
+              >
+                <Image
+                  source={require('../../../assets/carro.png')}
+                  style={styles.carro}
+                />
+                {cartCount > 0 && (
+                  <View style={styles.cartBadge}>
+                    <Text style={styles.cartBadgeText}>{cartCount}</Text>
+                  </View>
+                )}
+              </TouchableOpacity>
             </View>
 
             {/* headline */}
@@ -71,7 +82,7 @@ export default function ProductsScreen() {
               <Text style={styles.searchIcon}>⌕</Text>
               <TextInput
                 placeholder="Buscar..."
-                placeholderTextColor="#333333"
+                placeholderTextColor="#8E8E93"
                 value={searchQuery}
                 onChangeText={setSearchQuery}
                 style={styles.searchInput}
@@ -197,11 +208,11 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     height: 46,
-    marginHorizontal: 24,
+    marginHorizontal: 20,
     marginBottom: 44,
     paddingHorizontal: 18,
     borderRadius: 24,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#F2F2F7',
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -278,16 +289,4 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '600',
   },
-  searchIcon: {
-    color: '#1C1C1E',
-    fontSize: 29,
-    lineHeight: 29,
-    marginRight: 8,
-    transform: [{ rotate: '-20deg' }],
-  },
-    carro: {
-    width: 30,
-    height: 60,
-    resizeMode: 'contain',
-  }
 });

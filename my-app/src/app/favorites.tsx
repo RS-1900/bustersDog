@@ -35,17 +35,6 @@ export default function FavoritesScreen() {
           source={require('../../assets/buster.png')} //logo
           style={styles.logo}
         />
-        <TouchableOpacity
-          accessibilityLabel="Carrito de compras"
-          style={styles.headerButton}
-          onPress={() => router.push('/checkout')}
-        >
-          <Image 
-          source={require("../../assets/carro.png")}
-          style={styles.basura}
-          />
-
-        </TouchableOpacity>
       </View>
 
       <Text style={styles.title}>Favoritos</Text>
@@ -121,7 +110,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     paddingHorizontal: 18,
     paddingTop: 2,
   },
@@ -129,15 +118,13 @@ const styles = StyleSheet.create({
     width: 42,
     alignItems: 'flex-start',
     justifyContent: 'center',
+    position: 'absolute',
+    left: 18,
+    top: 2,
   },
   menuIcon: {
     color: '#E47B1B',
     fontSize: 27,
-  },
-  cartImage: {
-    width: 30,
-    height: 30,
-    resizeMode: 'contain',
   },
   title: {
     color: '#1C1C1E',
