@@ -1,4 +1,3 @@
-import React from 'react';
 import {
 	FlatList,
 	Image,
@@ -16,7 +15,7 @@ const TAX_RATE = 0.01;
 export default function CheckoutScreen() {
 	const cart = useProductStore((state) => state.cart);
 	const removeFromCart = useProductStore((state) => state.removeFromCart);
-	const subtotal = cart.reduce((total, product) => total + product.price, 0);
+	const subtotal = cart.reduce((total, product) => total + product.cartPrice * product.quantity, 0);
 	const taxes = subtotal * TAX_RATE;
 	const total = subtotal + taxes;
 
@@ -48,10 +47,12 @@ export default function CheckoutScreen() {
 						<View style={styles.productInfo}>
 							<Text style={styles.category}>{item.category}</Text>
 							<Text style={styles.productName}>{item.name}</Text>
-							<Text style={styles.quantity}>Cantidad: 01</Text>
+														<Text style={styles.quantity}>
+															Cantidad: {String(item.quantity).padStart(2, '0')}{item.selectedSize ? ` | Tamaño: ${item.selectedSize}` : ''}
+														</Text>
 						</View>
 						<View style={styles.productActions}>
-							<Text style={styles.productPrice}>${item.price.toFixed(2)}</Text>
+							<Text style={styles.productPrice}>${item.cartPrice.toFixed(2)}</Text>
 							<TouchableOpacity
 								accessibilityLabel={`Eliminar ${item.name} del carrito`}
 								style={styles.removeButton}
@@ -68,7 +69,7 @@ export default function CheckoutScreen() {
 			/>
 			<View style={styles.summary}>
 				<View style={styles.summaryRow}>
-					<Text>Subtotal ({cart.length})</Text>
+					<Text>Subtotal ({cart.reduce((count, item) => count + item.quantity, 0)})</Text>
 					<Text>${subtotal.toFixed(2)}</Text>
 				</View>
 				<View style={styles.summaryRow}>

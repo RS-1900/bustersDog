@@ -260,6 +260,7 @@
     "name": "Café Americano",
     "description": "Delicioso cafe  ",
     "price": 35,
+    "prices": { "S": 35, "M": 40, "L": 45 },
     "image": "https://imag.bonviveur.com/cafe-americano-en-la-taza.jpg",
     "category": "bebida",
     "available": true
@@ -270,6 +271,7 @@
     "name": "Espresso Americano",
     "description": "Delicioso cafe ",
     "price": 40,
+    "prices": { "S": 40, "M": 45, "L": 50 },
     "image": "https://placerydelirio.com/cdn/shop/files/AMERICANO-CAL-WEB-P_D-1_503x503.jpg?v=1748031032",
     "category": "bebida",
     "available": true
@@ -280,6 +282,7 @@
     "name": "Café Late",
     "description": "Delicioso cafe ñam ",
     "price": 50,
+    "prices": { "S": 50, "M": 57, "L": 62 },
     "image": "https://cdn7.kiwilimon.com/recetaimagen/36986/640x640/46349.jpg.jpg",
     "category": "bebida",
     "available": true
@@ -290,6 +293,7 @@
     "name": "Late Vainilla",
     "description": "Delicioso cafe ñam ",
     "price": 63,
+    "prices": { "S": 63, "M": 70, "L": 75 },
     "image": "https://herbsandflour.com/wp-content/uploads/2025/08/Vanilla-Latte-Recipe.jpg",
     "category": "bebida",
     "available": true
@@ -300,6 +304,7 @@
     "name": "Capuchino Italiano",
     "description": "Delicioso cafe ñam ",
     "price": 52,
+    "prices": { "S": 52, "M": 60, "L": 65 },
     "image": "https://as1.ftcdn.net/jpg/03/02/12/46/1000_F_302124697_ev8r1k2wW2bX1YffiuJS0poeUYn5jsBD.jpg",
     "category": "bebida",
     "available": true
@@ -310,6 +315,7 @@
     "name": "Moka / Moka Blanco",
     "description": "Delicioso moka jj ",
     "price": 65,
+    "prices": { "S": 65, "M": 70, "L": 75 },
     "image": "https://www.nespresso.com/coffee-blog/sites/default/files/2024-08/COFFEECAPSULES_VERTUOLINE_BEAUTYSHOTS_ATMOSPHERES_VERTUOLINE_RECIPES_NUTTYREVERSOCOFFEE_30072015181750914%5B1%5D.jpg",
     "category": "bebida",
     "available": true
@@ -320,6 +326,7 @@
     "name": "Café Caramelo",
     "description": "Delicioso café caramelon ",
     "price": 65,
+    "prices": { "S": 65, "M": 76, "L": 82 },
     "image": "https://www.cremashop.eu/content/www.crema.fi/media/recipe/caramel-macchiato/chailatte_d3bd53aba64fc0b8de54b56519201dd4.jpg",
     "category": "bebida",
     "available": true
@@ -330,6 +337,7 @@
     "name": "Espresso",
     "description": "Delicioso café caramelon ",
     "price": 37,
+    "prices": { "S": 37, "M": 42, "L": 47 },
     "image": "https://editorialtelevisa.brightspotcdn.com/wp-content/uploads/2013/04/cafe-espresso.jpg",
     "category": "bebida",
     "available": true
@@ -340,6 +348,7 @@
     "name": "Chocolate",
     "description": "Delicioso chocolate buster",
     "price": 55,
+    "prices": { "S": 55, "M": 60, "L": 65 },
     "image": "https://cdn7.kiwilimon.com/recetaimagen/38737/640x640/49817.jpg.webp",
     "category": "bebida",
     "available": true
@@ -350,6 +359,7 @@
     "name": "Cacao",
     "description": "Delicioso cacao buster",
     "price": 55,
+    "prices": { "S": 57, "M": 62, "L": 67 },
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiAdJRE_E-jb7jnWKiKfxNojX6ln766JVLxMmCuU08esIlOhVt1aPRYgI&s=10",
     "category": "bebida",
     "available": true
@@ -360,6 +370,7 @@
     "name": "Té",
     "description": "Delicioso cacao buster",
     "price": 35,
+    "prices": { "S": 35, "M": 41, "L": 47 },
     "image": "https://www.cafe-mx.com/blog/app/assets/media/2021/01/datos_curiosos_sobre_el_te.jpg",
     "category": "bebida",
     "available": true
@@ -380,6 +391,7 @@
     "name": "Tisana",
     "description": "Delicioso cacao buster",
     "price": 60,
+    "prices": { "S": 60, "M": 65, "L": 70 },
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ14ByCxLiAwzf2i7U4W-UVZ-8loFbzthHH19BexesRB27N393S-gDivX4&s=10",
     "category": "bebida",
     "available": true
@@ -390,6 +402,7 @@
     "name": "Chai",
     "description": "Delicioso chai buster",
     "price": 70,
+    "prices": { "S": 70, "M": 76, "L": 87 },
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyiPeQ0qC7XQDqA6TY4OlsgXp9bwKVckLIXQ_oRIAk5wO2WJsayqM97cU&s=10",
     "category": "bebida",
     "available": true
@@ -400,6 +413,7 @@
     "name": "Matcha",
     "description": "Delicioso matcha buster",
     "price": 70,
+    "prices": { "S": 70, "M": 76, "L": 87 },
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiqzC9CL8zy6zfFQBDM7wsL7ZR9ImVEPYuaIFUIND51lf171mzETisSVCC&s=10",
     "category": "bebida",
     "available": true
@@ -410,6 +424,7 @@
     "name": "Taro",
     "description": "Delicioso Taro buster",
     "price": 76,
+    "prices": { "S": 76, "M": 82, "L": 89 },
     "image": "https://media.zenfs.com/es/animal_gourmet_468/187cc16e0600d78074509ad36278a6b5",
     "category": "bebida",
     "available": true
@@ -420,6 +435,7 @@
     "name": "Limonada rosa",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 41,
+    "prices": { "S": 41, "M": 46, "L": 51 },
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWteXyPNo9OncGeJ76lh5gnux1d0S1Eatwq7ygDWqB7OjlJniW9lqFAHjr&s=10",
     "category": "bebida",
     "available": true
@@ -430,6 +446,7 @@
     "name": "Helado Chocolate",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 57,
+    "prices": { "S": 57, "M": 62, "L": 67 },
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiHm7tX17zE2qP-hQsny8_deiLDrMJaO2YREXiT_4JsTIJC9bub-9mnE0&s=10",
     "category": "bebida",
     "available": true
@@ -440,6 +457,7 @@
     "name": "Helado Chai",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 72,
+    "prices": { "S": 72, "M": 78, "L": 89 },
     "image": "https://tardedetortasfritas.com/wp-content/uploads/2020/06/dsc_0979.jpg",
     "category": "bebida",
     "available": true
@@ -450,6 +468,7 @@
     "name": "Helado Matcha",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 72,
+    "prices": { "S": 72, "M": 78, "L": 89 },
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn8_CjSXHZwoyoVxDjVGPheMgzEAWFkrkXAFLHhRsuj-olrfYH0PaGu5w&s=10",
     "category": "bebida",
     "available": true
@@ -460,6 +479,7 @@
     "name": "Helado Taro",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 78,
+    "prices": { "S": 78, "M": 84, "L": 90 },
     "image": "https://www.eis-perfecto.de/wp-content/uploads/2024/04/TARO-Biskuitkuchen-Eis-848x477.jpg",
     "category": "bebida",
     "available": true
@@ -470,6 +490,7 @@
     "name": "Helado Americano",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 37,
+    "prices": { "S": 37, "M": 42, "L": 47 },
     "image": "https://media.istockphoto.com/id/689968406/es/foto/cucharadas-de-sabroso-hielo-de-vainilla-en-un-taz%C3%B3n-sobre-la-mesa-r%C3%BAstica-de-madera-azul-closeup.jpg?s=612x612&w=0&k=20&c=DNxZb1ZUmjpNScs2egBODtSocm3grMadwx4SLzCVPAc=",
     "category": "bebida",
     "available": true
@@ -480,6 +501,7 @@
     "name": "Helado Vainilla",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 55,
+    "prices": { "S": 55, "M": 62, "L": 67 },
     "image": "https://static.bainet.es/clip/4896efa6-ec52-4ffe-ab1c-9b789353e444_source-aspect-ratio_1600w_0.jpg",
     "category": "bebida",
     "available": true
@@ -490,6 +512,7 @@
     "name": "Helado Late Vainilla",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
+    "prices": { "S": 65, "M": 72, "L": 77 },
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzc8Dhplp2aVALhjrH7ZKwQw4lZKJVBL9ncRg66OC1fsywQdhH97PbKRQm&s=10",
     "category": "bebida",
     "available": true
@@ -500,6 +523,7 @@
     "name": "Moka / Moka Blanco frío",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 70,
+    "prices": { "S": 69, "M": 75, "L": 80 },
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSp4AZ3kj7YqbuLuubzWssHPAGcVJdqQcmQIuxVa2zMQ-xe5G4R62FepynX&s=10",
     "category": "bebida",
     "available": true
@@ -510,6 +534,7 @@
     "name": "Helado Café Caramelo",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 70,
+    "prices": { "S": 70, "M": 77, "L": 82 },
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSezcsPYmszUIyUvWFl_B2j8Zvg4dE525lzlo9c4lZAQYmlqbX3Yqi4B8FZ&s=10",
     "category": "bebida",
     "available": true
@@ -520,6 +545,7 @@
     "name": "Frapé Café",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 53,
+    "prices": { "S": 53, "M": 58, "L": 64 },
     "image": "https://imag.bonviveur.com/degustando-cafe-frappe.jpg",
     "category": "bebida",
     "available": true
@@ -530,6 +556,7 @@
     "name": "Moka",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
+    "prices": { "S": 65, "M": 70, "L": 80 },
     "image": "https://rockyspizzeria.mx/wp-content/uploads/2023/12/moka.jpg",
     "category": "bebida",
     "available": true
@@ -540,6 +567,7 @@
     "name": "Moka Blanco",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
+    "prices": { "S": 65, "M": 70, "L": 80 },
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsc2UnHag6YW2EiiOOkDFrLBWXlLpXaRWUhkuYCOpsZhT3S3u8YAS--QiU&s=10",
     "category": "bebida",
     "available": true
@@ -550,6 +578,7 @@
     "name": "Frapé De Caramelo (Con cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 71,
+    "prices": { "S": 71, "M": 78, "L": 86 },
     "image": "https://www.cocinadelirante.com/sites/default/files/images/2024/07/frappe-de-cafe-y-caramelo-como-el-de-starbucks.jpg",
     "category": "bebida",
     "available": true
@@ -560,6 +589,7 @@
     "name": "Frapé De Cookies & Cream (con cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 74,
+    "prices": { "S": 74, "M": 80, "L": 88 },
     "image": "https://www.recetasnestle.com.mx/sites/default/files/srh_recipes/5e4e95ec1b30de9c438dccaff15a1469.jpg",
     "category": "bebida",
     "available": true
@@ -570,6 +600,7 @@
     "name": "Smoothie (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 48,
+    "prices": { "S": 48, "M": 53, "L": 58 },
     "image": "https://www.baque.com/wp-content/uploads/2018/01/frappe-1.jpg",
     "category": "bebida",
     "available": true
@@ -580,6 +611,7 @@
     "name": "Yogurth (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
+    "prices": { "S": 65, "M": 70, "L": 80 },
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_bSaolZAwzC-0qFY5eTelg-RlrgN2Ks8jbg7k8taC_yNPWds8nvHK-9I&s=10",
     "category": "bebida",
     "available": true
@@ -590,6 +622,7 @@
     "name": "Chai(Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
+    "prices": { "S": 65, "M": 70, "L": 75 },
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFl-tdHcgp7a4u8jh8G7GVIDJGBmcqz7dBF8_KTVUmcWt6GMNPO29Fh6Kl&s=10",
     "category": "bebida",
     "available": true
@@ -600,6 +633,7 @@
     "name": "Chocolate (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
+    "prices": { "S": 65, "M": 70, "L": 75 },
     "image": "https://www.recetassinlactosa.com//wp-content/uploads/2017/06/Frappuccino-sin-lactosa-v2.jpg",
     "category": "bebida",
     "available": true
@@ -610,6 +644,7 @@
     "name": "Vainilla (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
+    "prices": { "S": 65, "M": 70, "L": 75 },
     "image": "https://snapcalorie-webflow-website.s3.us-east-2.amazonaws.com/media/food_pics_v2/medium/vanilla_frappuccino.jpg",
     "category": "bebida",
     "available": true
@@ -620,6 +655,7 @@
     "name": "Caramelo (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
+    "prices": { "S": 65, "M": 70, "L": 80 },
     "image": "https://www.cocinadelirante.com/800x600/filters:format(webp):quality(75)/sites/default/files/images/2024/10/malteada-caramelo.jpg",
     "category": "bebida",
     "available": true
@@ -630,6 +666,7 @@
     "name": "Taro (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
+    "prices": { "S": 74, "M": 80, "L": 88 },
     "image": "https://universo-gastronomico.com.mx/wp-content/uploads/2025/07/TARO_5.jpg",
     "category": "bebida",
     "available": true
@@ -640,6 +677,7 @@
     "name": "Licuado De Chocolate (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
+    "prices": { "S": 65, "M": 70, "L": 75 },
     "image": "https://miarevista.okdiario.com/wp-content/uploads/sites/3/2022/07/26/62e03b483399c.jpeg",
     "category": "bebida",
     "available": true
@@ -650,6 +688,7 @@
     "name": "Licuado De Platáno (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
+    "prices": { "S": 65, "M": 70, "L": 75 },
     "image": "https://www.chiquita.es/wp-content/uploads/2022/07/V-220706_JUL_Coffee-protein-shake-with-peanut-butter-282x282.jpg",
     "category": "bebida",
     "available": true
@@ -660,6 +699,7 @@
     "name": "Licuado De Fresa (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
+    "prices": { "S": 65, "M": 70, "L": 75 },
     "image": "https://www.recetasnestle.com.mx/sites/default/files/srh_recipes/84445cfec4a0ba3b51c90f02680a9e7b.jpg",
     "category": "bebida",
     "available": true
@@ -670,6 +710,7 @@
     "name": "Licuado De Mango (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 65,
+    "prices": { "S": 65, "M": 70, "L": 75 },
     "image": "https://sazonsula.com/wp-content/uploads/2022/03/receta-frappe-de-mango-sazon-sula.jpg",
     "category": "bebida",
     "available": true
@@ -680,6 +721,7 @@
     "name": "Licuado De Manzana (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 74,
+    "prices": { "S": 74, "M": 79, "L": 84 },
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8sLw1Gv_SB2D8eLTSPmqQg107vtl6DS5POVFWIL8_QASr3MIgtGWS2sbk&s=10",
     "category": "bebida",
     "available": true
@@ -690,6 +732,7 @@
     "name": "Licuado De Avena (Frapé sin cafeína)",
     "description": "Deliciosa bebida fría sabor Limonada rosa tamaño grande.",
     "price": 55,
+    "prices": { "S": 55, "M": 60, "L": 65 },
     "image": "https://recetasdecocina.elmundo.es/wp-content/uploads/2025/06/batido-de-avena.jpg",
     "category": "bebida",
     "available": true

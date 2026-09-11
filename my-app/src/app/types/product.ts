@@ -1,4 +1,5 @@
 export type CategoryType = 'platillo' | 'bebida' | 'snack';
+export type ProductSize = 'S' | 'M' | 'L';
 
 export type Product = {
   id: string;
@@ -9,6 +10,13 @@ export type Product = {
   category: CategoryType;
   isFavorite?: boolean;
   available: boolean;
+  prices?: Partial<Record<ProductSize, number>>;
+};
+
+export type CartItem = Product & {
+  selectedSize?: ProductSize;
+  cartPrice: number;
+  quantity: number;
 };
 
 

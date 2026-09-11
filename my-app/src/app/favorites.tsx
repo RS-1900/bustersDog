@@ -14,6 +14,9 @@ import { useProductStore } from './stores/useProductStore';
 
 export default function FavoritesScreen() {
   const products = useProductStore((state) => state.products);
+  const cartCount = useProductStore((state) =>
+    state.cart.reduce((count, item) => count + item.quantity, 0),
+  );
   const toggleFavorite = useProductStore((state) => state.toggleFavorite);
   const [searchQuery, setSearchQuery] = React.useState('');
   const favoriteProducts = products.filter((product) => product.isFavorite);
@@ -35,6 +38,21 @@ export default function FavoritesScreen() {
           source={require('../../assets/buster.png')} //logo
           style={styles.logo}
         />
+        <TouchableOpacity
+          accessibilityLabel="Abrir carrito"
+          onPress={() => router.push('/checkout')}
+          style={styles.cartButton}
+        >
+          <Image
+            source={require('../../assets/carro.png')}
+            style={styles.cartImage}
+          />
+          {cartCount > 0 && (
+            <View style={styles.cartBadge}>
+              <Text style={styles.cartBadgeText}>{cartCount}</Text>
+            </View>
+          )}
+        </TouchableOpacity>
       </View>
 
       <Text style={styles.title}>Favoritos</Text>
@@ -125,6 +143,37 @@ const styles = StyleSheet.create({
   menuIcon: {
     color: '#E47B1B',
     fontSize: 27,
+  },
+  cartButton: {
+    width: 42,
+    height: 42,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 18,
+    top: 2,
+  },
+  cartImage: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+  },
+  cartBadge: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    minWidth: 18,
+    height: 18,
+    borderRadius: 9,
+    paddingHorizontal: 4,
+    backgroundColor: '#E0245E',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cartBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 11,
+    fontWeight: '700',
   },
   title: {
     color: '#1C1C1E',
