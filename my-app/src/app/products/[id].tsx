@@ -3,13 +3,15 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Alert } fr
 import { useLocalSearchParams, router } from 'expo-router';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useProductStore } from "../stores/useProductStore";
+import { getPriceForSize } from "../stores/useProductStore";
+import { ProductSize } from "../types/product";
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const products = useProductStore((state) => state.products);
   const toggleFavorite = useProductStore((state) => state.toggleFavorite);
   const addToCart = useProductStore((state) => state.addToCart);
-  const [selectedSize, setSelectedSize] = useState('M');
+  const [selectedSize, setSelectedSize] = useState<ProductSize>('M');
 
   const product = products.find((p) => p.id === id);
 
@@ -20,6 +22,11 @@ export default function ProductDetailScreen() {
       </SafeAreaView>
     );
   }
+
+  const selectedPrice = getPriceForSize(
+    product,
+    product.category === 'bebida' ? selectedSize : undefined,
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -72,7 +79,7 @@ export default function ProductDetailScreen() {
                   <TouchableOpacity
                     key={size}
                     style={[styles.sizeOption, selectedSize === size && styles.sizeOptionSelected]}
-                    onPress={() => setSelectedSize(size)}
+                    onPress={() => setSelectedSize(size as ProductSize)}
                   >
                     <Text style={[styles.sizeText, selectedSize === size && styles.sizeTextSelected]}>
                       {size}
@@ -86,14 +93,19 @@ export default function ProductDetailScreen() {
           <View style={styles.purchaseRow}>
             <View>
               <Text style={styles.purchaseLabel}>Precio</Text>
-              <Text style={styles.purchasePrice}>${product.price}</Text>
+                <Text style={styles.purchasePrice}>${selectedPrice}</Text>
             </View>
             <TouchableOpacity
               style={[styles.addButton, product.available === false && styles.addButtonDisabled]}
               disabled={product.available === false}
               onPress={() => {
-                addToCart(product.id);
-                Alert.alert('Producto agregado', `${product.name} se agregó al carrito.`);
+                const added = addToCart(product.id, selectedSize);
+                Alert.alert(
+                  added ? 'Producto agregado' : 'Límite alcanzado',
+                  added
+                    ? `${product.name} se agregó al carrito.`
+                    : 'Solo puedes agregar hasta 3 productos diferentes y 3 unidades de cada uno.',
+                );
               }}
             >
               <Text style={styles.addButtonText}>Agregar</Text>
