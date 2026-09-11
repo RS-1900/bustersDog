@@ -34,31 +34,76 @@ export function Page({ children }: PropsWithChildren) {
     </SafeAreaView>
   );
 }
-export function Header({ title }: { title?: string }) {
+export function Header({
+  title,
+  home = false,
+}: {
+  title?: string;
+  home?: boolean;
+}) {
   const count = useProductStore((s) =>
     s.cart.reduce((n, i) => n + i.quantity, 0),
   );
   return (
     <View style={ui.header}>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel="Volver al menú"
-        onPress={() => router.replace("/products")}
-        style={ui.nav}
-      >
-        <Text style={ui.link}>‹ Menú</Text>
-      </Pressable>
+      {home ? (
+        <View style={{ flex: 1 }}>
+          <Text style={{ color: "#513821", fontSize: 17, fontWeight: "800" }}>
+            Buster’s
+          </Text>
+          <Text
+            style={{
+              color: "#95724F",
+              fontSize: 9,
+              letterSpacing: 1.1,
+              marginTop: 3,
+            }}
+          >
+            BEAGLE & BAGEL
+          </Text>
+        </View>
+      ) : (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Volver al menú"
+          onPress={() => router.replace("/products")}
+          style={ui.nav}
+        >
+          <Text style={ui.link}>‹ Menú</Text>
+        </Pressable>
+      )}
       <View style={ui.brand}>
-        <Image source={require("../../assets/buster.png")} style={ui.logo} />
+        <Image
+          accessibilityLabel="Buster’s"
+          source={require("../../assets/buster.png")}
+          style={ui.logo}
+        />
         {title && <Text style={ui.heading}>{title}</Text>}
       </View>
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={`Abrir carrito, ${count} unidades`}
         onPress={() => router.push("/checkout")}
-        style={ui.nav}
+        style={[ui.nav, home && { flex: 1, alignItems: "flex-end" }]}
       >
-        <Text style={ui.link}>Carrito ({count})</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 5,
+            backgroundColor: "#FFF4E4",
+            padding: 10,
+            borderRadius: 18,
+          }}
+        >
+          <Image
+            source={require("../../assets/carro.png")}
+            style={{ width: 19, height: 19 }}
+          />
+          <Text style={ui.link}>
+            {home ? String(count) : `Carrito (${count})`}
+          </Text>
+        </View>
       </Pressable>
     </View>
   );
@@ -89,7 +134,7 @@ export const ui = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 12,
+    padding: 16,
     borderBottomWidth: 1,
     borderColor: "#F1E9DE",
     gap: 6,

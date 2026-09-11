@@ -13,7 +13,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/buster.png",
-        "backgroundColor": "#FFF8EF"
+        "backgroundColor": "#FFFFFF"
       },
       "predictiveBackGestureEnabled": false
     },
@@ -29,9 +29,11 @@
         {
           "image": "./assets/buster.png",
           "imageWidth": 180,
-          "backgroundColor": "#FFF8EF"
+          "backgroundColor": "#FFFFFF"
         }
-      ]
+      ],
+      "expo-image",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,

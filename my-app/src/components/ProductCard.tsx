@@ -16,6 +16,13 @@ export function ProductCard({ product }: { product: Product }) {
         style={styles.card}
       >
         <ProductImage uri={product.image} style={styles.image} />
+        <Text style={styles.category}>
+          {product.category === "bebida"
+            ? "BEBIDA"
+            : product.category === "platillo"
+              ? "PLATILLO"
+              : "ANTOJO"}
+        </Text>
         <Text style={styles.name} numberOfLines={3}>
           {product.name}
         </Text>
@@ -43,7 +50,9 @@ export function ProductCard({ product }: { product: Product }) {
 const styles = StyleSheet.create({
   wrapper: { width: "47%", marginTop: 54, marginBottom: 8 },
   card: {
-    backgroundColor: "#FFAE34",
+    backgroundColor: "#FFD18B",
+    borderWidth: 1,
+    borderColor: "#F2BF73",
     borderRadius: 25,
     padding: 12,
     paddingTop: 88,
@@ -67,6 +76,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#302314",
     minHeight: 44,
+  },
+  category: {
+    color: "#936126",
+    fontSize: 9,
+    fontWeight: "700",
+    letterSpacing: 1.4,
+    marginBottom: 7,
   },
   price: {
     color: "#633600",

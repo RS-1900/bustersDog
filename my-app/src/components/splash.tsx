@@ -1,66 +1,86 @@
-import React, { useEffect, useRef } from 'react';
-import { Image, Animated, StyleSheet } from 'react-native';
-
-interface SplashProps {
-  onFinish: () => void;
-}
-
-export default function SplashScreen({ onFinish }: SplashProps) {
-  const fadeAnim = useRef(new Animated.Value(1)).current;
-
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  Animated,
+  Image,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+export default function BrandSplash({
+  onFinish,
+  onReady,
+}: {
+  onFinish(): void;
+  onReady(): void;
+}) {
+  const opacity = useRef(new Animated.Value(1)).current;
+  const [loaded, setLoaded] = useState(0);
+  const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
+  const ready = useCallback(() => setLoaded((n) => n + 1), []);
   useEffect(() => {
-    // mostrar por 1.5 segundos
-    const timer = setTimeout(() => {
-      // fadeout
-      Animated.timing(fadeAnim, {
-        toValue: 0,
-        duration: 450,
-        useNativeDriver: true,
-      }).start(() => {
-        onFinish(); //
-      });
-    }, 1500);
-
+    if (loaded < 2) return;
+    onReady();
+    const timer = setTimeout(
+      () =>
+        Animated.timing(opacity, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }).start(({ finished }) => {
+          if (finished) onFinish();
+        }),
+      1200,
+    );
+    return () => {
+      clearTimeout(timer);
+      opacity.stopAnimation();
+    };
+  }, [loaded, onReady, onFinish, opacity]);
+  useEffect(() => {
+    const timer = setTimeout(onReady, 1500);
     return () => clearTimeout(timer);
-  }, [fadeAnim, onFinish]);
-
+  }, [onReady]);
   return (
-    <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+    <Animated.View
+      accessibilityLabel="Bienvenido a Buster’s, Universidad Tecmilenio"
+      style={[styles.page, { opacity }]}
+    >
+      <View style={styles.center}>
+        <Image
+          accessibilityLabel="Buster’s Beagle & Bagel"
+          source={require("../../assets/buster.png")}
+          onLoadEnd={ready}
+          style={{
+            width: Math.min(width * 0.53, 240),
+            height: Math.min(width * 0.53, 240),
+          }}
+          resizeMode="contain"
+        />
+      </View>
       <Image
-        source={require('../../assets/buster.png')} // logo de dog
-        style={styles.logo}
+        accessibilityLabel="Universidad Tecmilenio"
+        source={require("../../assets/tecm.png")}
+        onLoadEnd={ready}
         resizeMode="contain"
+        style={[styles.university, { bottom: Math.max(insets.bottom, 12) }]}
       />
-      <Image
-        source={require('../../assets/tecm.png')} // logo de dog
-        style={styles.logo2}
-        resizeMode="contain"
-      />
-
-      
     </Animated.View>
   );
 }
-
 const styles = StyleSheet.create({
-  container: {
+  page: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: '#ffffff', // color del fondo
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 99999, // garantiza q se ponga arriba d todo
+    backgroundColor: "#FFFFFF",
+    alignItems: "center",
+    zIndex: 100,
   },
-  logo: {
-    width: 180,
-    height: 180,
+  center: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
-
-    logo2: {
-    width: 120,
-    height: 140,
-    position:'absolute',
-    bottom:0,
-    resizeMode: 'cover',
-
-  },
+  university: { position: "absolute", width: 150, height: 140 },
 });

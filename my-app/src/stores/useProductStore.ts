@@ -8,14 +8,20 @@ import { createShopStore, type ShopState } from "./createShopStore";
 import { createApiClient } from "../services/api-client";
 import { sessionSchema } from "../types/product";
 import { API_URL } from "../services/config";
+import { createUuid } from "../services/uuid";
 const sessionWithId = sessionSchema.extend({ localId: z.string().uuid() });
 const key = () =>
-  Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, API_URL).then(
-    (hash) => "busters." + hash,
-  );
+  Platform.OS === "web" &&
+  typeof globalThis.crypto !== "undefined" &&
+  !globalThis.crypto.subtle
+    ? Promise.resolve("busters.lan." + encodeURIComponent(API_URL))
+    : Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        API_URL,
+      ).then((hash) => "busters." + hash);
 export const shopStore = createShopStore({
   api: createApiClient(API_URL),
-  uuid: () => Crypto.randomUUID(),
+  uuid: () => createUuid((bytes) => Crypto.getRandomValues(bytes)),
   now: Date.now,
   storage: {
     read: async () => {
