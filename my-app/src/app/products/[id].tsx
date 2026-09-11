@@ -1,281 +1,199 @@
-import { useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
-import { useLocalSearchParams, router } from 'expo-router';
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useProductStore } from "../stores/useProductStore";
-import { getPriceForSize } from "../stores/useProductStore";
-import { ProductSize } from "../types/product";
-
+import { useEffect, useState } from "react";
+import { View, Text, ScrollView, Pressable } from "react-native";
+import { useLocalSearchParams, router } from "expo-router";
+import { useProductStore } from "../../stores/useProductStore";
+import { Page, Header, Messages, Button, ui } from "../../components/ShopUI";
+import { ProductImage } from "../../components/ProductImage";
+import { cents, money, selectionError } from "../../domain/cart";
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const products = useProductStore((state) => state.products);
-  const toggleFavorite = useProductStore((state) => state.toggleFavorite);
-  const addToCart = useProductStore((state) => state.addToCart);
-  const [selectedSize, setSelectedSize] = useState<ProductSize>('M');
-
+  const {
+    products,
+    favoriteIds,
+    loading,
+    loadCatalog,
+    toggleFavorite,
+    addToCart,
+    pending,
+    submitting,
+    hydrated,
+    storageError,
+    clearMessage,
+  } = useProductStore((s) => s);
+  const [selectedId, setSelectedId] = useState("");
+  const [options, setOptions] = useState<string[]>([]);
+  useEffect(() => {
+    setSelectedId("");
+    setOptions([]);
+    clearMessage();
+  }, [id, clearMessage]);
   const product = products.find((p) => p.id === id);
-
-  if (!product) {
+  if (!product)
     return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.notFoundText}>Producto no encontrado</Text>
-      </SafeAreaView>
+      <Page>
+        <Header />
+        <View style={ui.content}>
+          <Text style={ui.text}>
+            {loading
+              ? "Cargando producto…"
+              : "Este producto no está disponible."}
+          </Text>
+          <Button
+            title="Actualizar catálogo"
+            onPress={() => void loadCatalog()}
+            disabled={loading}
+          />
+        </View>
+      </Page>
     );
-  }
-
-  const selectedPrice = getPriceForSize(
-    product,
-    product.category === 'bebida' ? selectedSize : undefined,
-  );
-
+  const variant =
+    product.variants.find((v) => v.id === selectedId) ||
+    (!selectedId ? product.variants.find((v) => v.available) : undefined);
+  const invalid = selectionError(product, variant?.id || "", options);
+  const extra = product.modifier_groups
+    .flatMap((g) => g.options)
+    .filter((o) => options.includes(o.id))
+    .reduce((n, o) => n + cents(o.price), 0);
+  const favorite = favoriteIds.includes(product.id);
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Header Bar */}
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <Text style={styles.backText}>←</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => toggleFavorite(product.id)}>
-          <Text style={[styles.heartIcon, product.isFavorite && styles.heartIconActive]}>
-            {product.isFavorite ? '♥' : '♡'}
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.productImageContainer}>
-          <Image source={{ uri: product.image }} style={styles.productImage} />
-        </View>
-
-        {/* contenedor de info del producto */}
-        <View style={styles.detailsCard}>
-          <View style={styles.titleRow}>
-            <Text style={styles.title}>{product.name}</Text>
-          </View>
-
-          {/* disponibilidad iconito */}
-          <View style={styles.availabilityBadge}>
-            <Text
-              style={[
-                styles.availabilityText,
-                product.available === false && styles.unavailableText,
-              ]}
-            >
-              ● {product.available !== false ? 'Disponible' : 'Agotado'}
+    <Page>
+      <Header />
+      <ScrollView contentContainerStyle={ui.content}>
+        <ProductImage
+          uri={product.image}
+          style={{
+            width: "100%",
+            height: 240,
+            borderRadius: 28,
+            backgroundColor: "#FFF8EF",
+          }}
+        />
+        <View style={ui.row}>
+          <Text style={[ui.title, { flex: 1 }]}>{product.name}</Text>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={
+              favorite ? "Quitar de favoritos" : "Agregar a favoritos"
+            }
+            onPress={() => toggleFavorite(product.id)}
+            style={{ padding: 12 }}
+          >
+            <Text style={{ fontSize: 30, color: "#B31944" }}>
+              {favorite ? "♥" : "♡"}
             </Text>
-          </View>
-
-          {/* descripcion de producto */}
-          <Text style={styles.sectionTitle}>Descripción</Text>
-          <Text style={styles.description}>
-            {product.description || 'Delicioso producto elaborado con ingredientes frescos de alta calidad.'}
-          </Text>
-
-          {product.category === 'bebida' && (
-            <View style={styles.sizeSection}>
-              <Text style={styles.sectionTitle}>Tamaño</Text>
-              <View style={styles.sizeOptions}>
-                {['S', 'M', 'L'].map((size) => (
-                  <TouchableOpacity
-                    key={size}
-                    style={[styles.sizeOption, selectedSize === size && styles.sizeOptionSelected]}
-                    onPress={() => setSelectedSize(size as ProductSize)}
-                  >
-                    <Text style={[styles.sizeText, selectedSize === size && styles.sizeTextSelected]}>
-                      {size}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </View>
-          )}
-
-          <View style={styles.purchaseRow}>
-            <View>
-              <Text style={styles.purchaseLabel}>Precio</Text>
-                <Text style={styles.purchasePrice}>${selectedPrice}</Text>
-            </View>
-            <TouchableOpacity
-              style={[styles.addButton, product.available === false && styles.addButtonDisabled]}
-              disabled={product.available === false}
-              onPress={() => {
-                const added = addToCart(product.id, selectedSize);
-                Alert.alert(
-                  added ? 'Producto agregado' : 'Límite alcanzado',
-                  added
-                    ? `${product.name} se agregó al carrito.`
-                    : 'Solo puedes agregar hasta 3 productos diferentes y 3 unidades de cada uno.',
-                );
-              }}
-            >
-              <Text style={styles.addButtonText}>Agregar</Text>
-            </TouchableOpacity>
+          </Pressable>
+        </View>
+        <Text style={ui.muted}>{product.category}</Text>
+        <Text style={ui.text}>{product.description}</Text>
+        <View style={ui.card}>
+          <Text style={ui.heading}>Elige tu presentación</Text>
+          <View style={ui.wrap}>
+            {product.variants.map((v) => (
+              <Pressable
+                key={v.id}
+                accessibilityRole="radio"
+                accessibilityState={{
+                  checked: variant?.id === v.id,
+                  disabled: !v.available,
+                }}
+                disabled={!v.available}
+                onPress={() => setSelectedId(v.id)}
+                style={[
+                  ui.choice,
+                  variant?.id === v.id && ui.selected,
+                  !v.available && ui.disabled,
+                ]}
+              >
+                <Text style={ui.link}>
+                  {v.label}
+                  {v.volume_ml ? ` · ${v.volume_ml} ml` : ""}
+                </Text>
+                <Text style={ui.text}>{money(cents(v.price))}</Text>
+                {!v.available && <Text style={ui.muted}>Agotado</Text>}
+              </Pressable>
+            ))}
           </View>
         </View>
+        {product.modifier_groups.map((group) => (
+          <View key={group.id} style={ui.card}>
+            <Text style={ui.heading}>{group.name}</Text>
+            <Text style={ui.muted}>
+              {group.min_selections
+                ? `Elige de ${group.min_selections} a ${group.max_selections}.`
+                : `Opcional: hasta ${group.max_selections}.`}
+            </Text>
+            <View style={ui.wrap}>
+              {group.options.map((option) => (
+                <Pressable
+                  key={option.id}
+                  accessibilityRole="checkbox"
+                  accessibilityState={{
+                    checked: options.includes(option.id),
+                    disabled: !option.available,
+                  }}
+                  disabled={!option.available}
+                  style={[
+                    ui.choice,
+                    options.includes(option.id) && ui.selected,
+                    !option.available && ui.disabled,
+                  ]}
+                  onPress={() => {
+                    setOptions((previous) => {
+                      if (previous.includes(option.id))
+                        return previous.filter((x) => x !== option.id);
+                      if (group.max_selections === 1)
+                        return [
+                          ...previous.filter(
+                            (x) => !group.options.some((o) => o.id === x),
+                          ),
+                          option.id,
+                        ];
+                      if (
+                        previous.filter((x) =>
+                          group.options.some((o) => o.id === x),
+                        ).length >= group.max_selections
+                      )
+                        return previous;
+                      return [...previous, option.id];
+                    });
+                  }}
+                >
+                  <Text style={ui.link}>
+                    {options.includes(option.id) ? "✓ " : ""}
+                    {option.name}
+                  </Text>
+                  <Text style={ui.muted}>+{money(cents(option.price))}</Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+        ))}
+        <Messages />
+        {invalid && <Text style={ui.muted}>{invalid}</Text>}
+        <View style={ui.row}>
+          <Text style={ui.title}>
+            {variant
+              ? money(cents(variant.price) + extra)
+              : "Sin disponibilidad"}
+          </Text>
+          <Button
+            title="Agregar"
+            disabled={
+              !!invalid ||
+              !!pending ||
+              submitting ||
+              !hydrated ||
+              !!storageError
+            }
+            onPress={() => addToCart(product.id, variant!.id, options)}
+          />
+        </View>
+        <Button
+          title="Ver carrito"
+          secondary
+          onPress={() => router.push("/checkout")}
+        />
       </ScrollView>
-    </SafeAreaView>
+    </Page>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-  },
-  backButton: {
-    padding: 5,
-  },
-  backText: {
-    fontSize: 24,
-    color: '#C87D0E',
-    fontWeight: 'bold',
-  },
-  heartIcon: {
-    fontSize: 24,
-    color: '#8E8E93',
-  },
-  heartIconActive: {
-    color: '#E0245E',
-  },
-  content: {
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingBottom: 30,
-  },
-  productImageContainer: {
-    width: '100%',
-    maxWidth: 420,
-    height: 290,
-    marginVertical: 10,
-    borderRadius: 30,
-    overflow: 'hidden'
-  },
-  productImage: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
-  detailsCard: {
-    width: '100%',
-    backgroundColor: '#F8F9FA',
-    borderRadius: 24,
-    padding: 20,
-    marginTop: 10,
-  },
-  titleRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#1C1C1E',
-    flex: 1,
-  },
-  price: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#c85f0e', //color del precio dentro d la carta
-  },
-  availabilityBadge: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#E6F4EA',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
-    marginVertical: 12,
-  },
-  availabilityText: {
-    color: '#137333',
-    fontWeight: '600',
-    fontSize: 12,
-  },
-  unavailableText: {
-    color: '#D93025',
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#1C1C1E',
-    marginTop: 10,
-    marginBottom: 6,
-  },
-  description: {
-    fontSize: 14,
-    color: '#636366',
-    lineHeight: 20,
-  },
-  sizeSection: {
-    marginTop: 14,
-  },
-  sizeOptions: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  sizeOption: {
-    flex: 1,
-    height: 42,
-    borderWidth: 1,
-    borderColor: '#D8D8D8',
-    borderRadius: 9,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
-  },
-  sizeOptionSelected: {
-    borderColor: '#FFAE34',
-    backgroundColor: '#FFF8EC',
-  },
-  sizeText: {
-    fontSize: 14,
-    color: '#383838',
-  },
-  sizeTextSelected: {
-    color: '#D8830A',
-    fontWeight: '700',
-  },
-  purchaseRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 28,
-  },
-  purchaseLabel: {
-    fontSize: 18,
-    color: '#A0A0A0',
-  },
-  purchasePrice: {
-    fontSize: 26,
-    color: '#FFAE34',
-    marginTop: 2,
-  },
-  addButton: {
-    minWidth: 125,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: '#FFAE34',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  addButtonDisabled: {
-    backgroundColor: '#D1D1D1',
-  },
-  addButtonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: '700',
-  },
-  notFoundText: {
-    textAlign: 'center',
-    marginTop: 50,
-    fontSize: 16,
-    color: '#8E8E93',
-  },
-});

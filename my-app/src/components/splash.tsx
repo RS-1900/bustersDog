@@ -27,12 +27,12 @@ export default function SplashScreen({ onFinish }: SplashProps) {
   return (
     <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
       <Image
-        source={require('../../../assets/buster.png')} // logo de dog
+        source={require('../../assets/buster.png')} // logo de dog
         style={styles.logo}
         resizeMode="contain"
       />
       <Image
-        source={require('../../../assets/tecm.png')} // logo de dog
+        source={require('../../assets/tecm.png')} // logo de dog
         style={styles.logo2}
         resizeMode="contain"
       />
