@@ -41,3 +41,9 @@ example
 # generated native folders
 /ios
 /android
+
+# Local configuration and export artifacts
+.env
+.env.*
+!.env.example
+dist-android/
