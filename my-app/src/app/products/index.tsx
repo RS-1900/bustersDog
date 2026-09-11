@@ -16,7 +16,9 @@ import { CategoryType } from '../types/product';
 
 export default function ProductsScreen() {
   const products = useProductStore((state) => state.products);
-  const cartCount = useProductStore((state) => state.cart.length);
+  const cartCount = useProductStore((state) =>
+    state.cart.reduce((count, item) => count + item.quantity, 0),
+  );
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>('platillo');
   const [searchQuery, setSearchQuery] = useState('');
   const [menuVisible, setMenuVisible] = useState(false);
