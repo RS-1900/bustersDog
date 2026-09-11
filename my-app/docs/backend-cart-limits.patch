@@ -1,0 +1,59 @@
+diff --git a/src/routes/orders.ts b/src/routes/orders.ts
+index 98ee8b0..dd8cbcc 100644
+--- a/src/routes/orders.ts
++++ b/src/routes/orders.ts
+@@ -11,3 +11,3 @@ const uuid=z.uuid();
+ const statuses=z.enum(['new','preparing','ready','delivered','cancelled']);
+-const bodySchema=z.strictObject({items:z.array(z.strictObject({variant_id:uuid,quantity:z.number().int().min(1).max(20),option_ids:z.array(uuid).max(12).default([]).refine(a=>new Set(a).size===a.length,'No repitas una opción')})).min(1).max(20)});
++const bodySchema=z.strictObject({items:z.array(z.strictObject({variant_id:uuid,quantity:z.number().int().min(1).max(3),option_ids:z.array(uuid).max(12).default([]).refine(a=>new Set(a).size===a.length,'No repitas una opción')})).min(1).max(9)});
+ const money=(cents:number)=>(cents/100).toFixed(2);
+@@ -61,4 +61,8 @@ mobileRouter.post('/pedidos',requireCustomer,async(req,res)=>{
+    WHERE v.id=ANY($1::uuid[]) AND NOT v.archived AND v.available AND NOT p.archived AND p.available ORDER BY p.id,v.id FOR SHARE OF p,v,s`,[ids])).rows;
+-  if(variants.length!==ids.length)throw new ApiError(409,'Una presentación ya no está disponible. Actualiza el catálogo');
++  if(variants.length!==ids.length)throw new ApiError(409,'Una presentación ya no está disponible. Actualiza el catálogo','ORDER_REJECTED');
+   const productIds=[...new Set(variants.map(v=>v.product_id))].sort();
++  if(productIds.length>3)throw new ApiError(400,'Puedes pedir hasta 3 productos distintos');
++  const quantities=new Map<string,number>();
++  for(const item of body.items){const productId=variants.find(v=>v.id===item.variant_id)!.product_id;quantities.set(productId,(quantities.get(productId)||0)+item.quantity);}
++  if([...quantities.values()].some(quantity=>quantity>3))throw new ApiError(400,'Puedes pedir hasta 3 unidades por producto, sumando tamaños y opciones');
+   const groups=(await c.query(`SELECT pg.product_id,g.* FROM public.product_modifier_groups pg JOIN public.modifier_groups g ON g.id=pg.group_id WHERE pg.product_id=ANY($1::uuid[]) ORDER BY g.id FOR SHARE OF g`,[productIds])).rows;
+@@ -66,3 +70,3 @@ mobileRouter.post('/pedidos',requireCustomer,async(req,res)=>{
+   const options=(await c.query('SELECT id,group_id,name,(price*100)::bigint::text cents FROM public.modifier_options WHERE id=ANY($1::uuid[]) AND available ORDER BY id FOR SHARE',[optionIds])).rows;
+-  if(options.length!==optionIds.length)throw new ApiError(409,'Una opción ya no está disponible');
++  if(options.length!==optionIds.length)throw new ApiError(409,'Una opción ya no está disponible','ORDER_REJECTED');
+   let total=0;
+diff --git a/src/lib/catalog.ts b/src/lib/catalog.ts
+index 0faebc3..2f24e91 100644
+--- a/src/lib/catalog.ts
++++ b/src/lib/catalog.ts
+@@ -16,2 +16,2 @@ export function serializeProduct(product:CatalogProduct) {
+ }
+-export class ApiError extends Error {constructor(public status:number,message:string){super(message);}}
++export class ApiError extends Error {constructor(public status:number,message:string,public code?:string){super(message);}}
+diff --git a/src/app.ts b/src/app.ts
+index c59ff2d..ceb3a77 100644
+--- a/src/app.ts
++++ b/src/app.ts
+@@ -55,3 +55,3 @@ app.use((_req, res) => {
+ const handleError: ErrorRequestHandler = (error, req, res, _next) => {
+-  if (error instanceof ApiError) { if(error.status===429) res.set('Retry-After','60'); res.status(error.status).json({error:error.message}); return; }
++  if (error instanceof ApiError) { if(error.status===429) res.set('Retry-After','60'); res.status(error.status).json({error:error.message,...(error.code?{code:error.code}:{})}); return; }
+   if (['23505','23503','23514','55P03','40P01'].includes(error?.code)) { res.status(409).json({error:'Los datos cambiaron o entran en conflicto. Actualiza e intenta de nuevo'}); return; }
+diff --git a/tests/orders.integration.test.ts b/tests/orders.integration.test.ts
+index 8787f30..e388902 100644
+--- a/tests/orders.integration.test.ts
++++ b/tests/orders.integration.test.ts
+@@ -36,3 +36,12 @@ test('Pedidos: opciones, importes, reintentos, permisos, historial y archivo',{t
+   const mixed=await json('POST','/api/v1/pedidos',{items:[{variant_id:v.id,quantity:1,option_ids:draft.items[0].option_ids},{variant_id:p.variants[1].id,quantity:1,option_ids:[chocolate]}]},201,{...customer,'Idempotency-Key':randomUUID()});assert.equal(mixed.total,'89.50');assert.equal(mixed.items.length,2);
+-  const bulk=await json('POST','/api/v1/pedidos',{items:Array.from({length:20},()=>({variant_id:p.variants[1].id,quantity:1,option_ids:[chocolate]}))},201,{...customer,'Idempotency-Key':randomUUID()});assert.equal(bulk.total,'800.00');assert.equal(bulk.items.length,20);
++  const bulk=await json('POST','/api/v1/pedidos',{items:Array.from({length:3},()=>({variant_id:p.variants[1].id,quantity:1,option_ids:[chocolate]}))},201,{...customer,'Idempotency-Key':randomUUID()});assert.equal(bulk.total,'120.00');assert.equal(bulk.items.length,3);
++  const limitsCustomer={...customer,Authorization:'Bearer '+p.otherToken,'Idempotency-Key':randomUUID()};
++  assert.equal((await request('POST','/api/v1/pedidos',{items:[{variant_id:v.id,quantity:2,option_ids:[chocolate]},{variant_id:p.variants[1].id,quantity:2,option_ids:[chocolate]}]},limitsCustomer)).status,400);
++  assert.equal((await request('POST','/api/v1/pedidos',{items:[{variant_id:v.id,quantity:2,option_ids:[chocolate]},{variant_id:v.id,quantity:2,option_ids:draft.items[0].option_ids}]},limitsCustomer)).status,400);
++  assert.equal((await request('POST','/api/v1/pedidos',{items:[{variant_id:v.id,quantity:4,option_ids:[chocolate]}]},limitsCustomer)).status,400);
++  const extraVariants:string[]=[];
++  for(let i=0;i<3;i++){const extra=await json('POST','/productos',{name:'Límite temporal '+randomUUID(),description:'Solo pruebas',image:'assets/product-placeholder.svg',category_id:category.id,variants:[{label:'Único',price:1}]},201);productIds.push(extra.id);extraVariants.push(extra.variants[0].id);}
++  const four={items:[...extraVariants.map(variant_id=>({variant_id,quantity:1,option_ids:[]})),{variant_id:v.id,quantity:1,option_ids:[chocolate]}]};
++  assert.equal((await request('POST','/api/v1/pedidos',four,limitsCustomer)).status,400);
++  const maximum=await json('POST','/api/v1/pedidos',{items:extraVariants.map(variant_id=>({variant_id,quantity:3,option_ids:[]}))},201,limitsCustomer);assert.equal(maximum.total,'9.00');
+   const page=await json('GET','/pedidos?limit=1',undefined);assert.equal(page.orders.length,1);assert.ok(page.next_cursor);const page2=await json('GET','/pedidos?limit=1&cursor='+page.next_cursor,undefined);assert.notEqual(page.orders[0].id,page2.orders[0].id);
