@@ -1,6 +1,6 @@
 # Contrato de integración con la app
 
-Versión 1. Base local: `http://localhost:5000`. Especificación para importar en herramientas de API: [openapi.json](openapi.json).
+Versión 1. Base compartida: `https://cafeteria-api-3hqs.onrender.com`. Especificación para importar en herramientas de API: [openapi.json](openapi.json).
 
 Desde un teléfono, `localhost` es el propio teléfono. En pruebas dentro de la misma red se usa la dirección de la computadora que ejecuta la API. El despliegue debe usar HTTPS. La app nunca recibe `DATABASE_URL`, claves de Supabase ni credenciales del personal.
 

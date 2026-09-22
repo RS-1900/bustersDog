@@ -7,8 +7,8 @@
   },
   "servers": [
     {
-      "url": "http://localhost:5000",
-      "description": "Desarrollo local; cambiar por el origen del servidor desde un teléfono"
+      "url": "https://cafeteria-api-3hqs.onrender.com",
+      "description": "API compartida en Render"
     }
   ],
   "paths": {
@@ -759,6 +759,12 @@
       "CreateOrder": {
         "type": "object",
         "properties": {
+          "notes": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Indicaciones opcionales para el pedido completo. Se recortan espacios exteriores; vacío equivale a omitirlo.",
+            "examples": ["Hot dog sin mostaza."]
+          },
           "items": {
             "type": "array",
             "items": {
@@ -875,6 +881,12 @@
       "Order": {
         "type": "object",
         "properties": {
+          "notes": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Indicaciones guardadas al crear el pedido; cadena vacía si no hay.",
+            "default": ""
+          },
           "id": {
             "type": "string",
             "format": "uuid"

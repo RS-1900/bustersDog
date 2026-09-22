@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   catalogSchema,
+  cafeStatusSchema,
   orderSchema,
   sessionSchema,
   type OrderRequest,
@@ -28,7 +29,8 @@ export function createApiClient(
     if (!baseUrl)
       throw new ApiError("No se ha configurado la conexión con la cafetería.");
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 20000);
+    // Render Free may need over 50 seconds to wake after inactivity.
+    const timer = setTimeout(() => controller.abort(), 90000);
     try {
       const response = await fetcher(baseUrl + path, {
         ...options,
@@ -78,6 +80,7 @@ export function createApiClient(
   }
   return {
     catalog: () => request("/api/v1/catalogo", catalogSchema),
+    cafeStatus: () => request("/api/v1/cafeteria", cafeStatusSchema),
     createSession: () =>
       request("/api/v1/sesiones", sessionSchema, {
         method: "POST",

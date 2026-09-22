@@ -19,6 +19,14 @@ const key = () =>
         Crypto.CryptoDigestAlgorithm.SHA256,
         API_URL,
       ).then((hash) => "busters." + hash);
+export async function readShoppingSession() {
+  const name = (await key()) + ".session";
+  const raw =
+    Platform.OS === "web"
+      ? sessionStorage.getItem(name)
+      : await SecureStore.getItemAsync(name);
+  return raw ? sessionWithId.parse(JSON.parse(raw)) : null;
+}
 export const shopStore = createShopStore({
   api: createApiClient(API_URL),
   uuid: () => createUuid((bytes) => Crypto.getRandomValues(bytes)),

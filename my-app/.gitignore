@@ -47,3 +47,4 @@ example
 .env.*
 !.env.example
 dist-android/
+dist-preview/

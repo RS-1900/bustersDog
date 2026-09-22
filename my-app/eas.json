@@ -1,0 +1,16 @@
+{
+  "cli": {
+    "appVersionSource": "local"
+  },
+  "build": {
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://cafeteria-api-3hqs.onrender.com"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  }
+}

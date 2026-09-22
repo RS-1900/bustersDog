@@ -24,6 +24,7 @@ export const product = (name = "Café"): Product => ({
   modifier_groups: [],
 });
 export function harness() {
+  const cafeteria = { is_open: true, updated_at: new Date().toISOString() };
   const p = product();
   let raw: string | null = null;
   let session: ShoppingSession | null = null;
@@ -54,7 +55,12 @@ export function harness() {
       },
     },
     api: {
-      catalog: async () => ({ currency: "MXN", products: [p] }),
+      catalog: async () => ({
+        currency: "MXN",
+        products: [p],
+        cafeteria: { ...cafeteria },
+      }),
+      cafeStatus: async () => ({ ...cafeteria }),
       createSession: async () => ({
         token: "a".repeat(64),
         expires_at: new Date(Date.now() + 86400000).toISOString(),
@@ -67,6 +73,7 @@ export function harness() {
     },
   };
   return {
+    cafeteria,
     p,
     order,
     deps,

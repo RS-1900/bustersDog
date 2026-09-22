@@ -9,6 +9,73 @@ async function ready(h: ReturnType<typeof harness>) {
   s.getState().addToCart(h.p.id, h.p.variants[0].id, []);
   return s;
 }
+test("indicaciones se conservan al reiniciar y se limpian al confirmar", async () => {
+  const h = harness();
+  const first = await ready(h);
+  first.getState().setOrderNotes("  Hot dog sin mostaza\nSin cebolla  ");
+  // Esperar la cola de almacenamiento simulada antes de abrir otra instancia.
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  const restored = h.make();
+  await restored.getState().hydrate();
+  assert.equal(
+    restored.getState().orderNotes,
+    "  Hot dog sin mostaza\nSin cebolla  ",
+  );
+  await restored.getState().submitOrder();
+  assert.equal(
+    (h.calls[0].body as { notes: string }).notes,
+    "Hot dog sin mostaza\nSin cebolla",
+  );
+  assert.equal(restored.getState().orderNotes, "");
+  assert.equal(JSON.parse(h.raw()!).orderNotes, "");
+});
+test("indicaciones de un envío incierto no se pueden editar ni cambiar al reintentar", async () => {
+  const h = harness();
+  const original = h.deps.api.createOrder;
+  h.deps.api.createOrder = async (...args) => {
+    await original(...args);
+    throw new ApiError("Sin conexión");
+  };
+  const s = await ready(h);
+  s.getState().setOrderNotes("Sin mostaza");
+  await s.getState().submitOrder();
+  s.getState().setOrderNotes("Con mostaza");
+  assert.equal(s.getState().orderNotes, "Sin mostaza");
+  const restored = h.make();
+  await restored.getState().hydrate();
+  h.deps.api.createOrder = original;
+  await restored.getState().submitOrder();
+  assert.deepEqual(h.calls[0], h.calls[1]);
+  assert.equal((h.calls[1].body as { notes: string }).notes, "Sin mostaza");
+});
+test("indicaciones respetan el límite y se conservan al rechazar un pedido", async () => {
+  const h = harness();
+  const s = await ready(h);
+  s.getState().setOrderNotes("x".repeat(500));
+  s.getState().setOrderNotes("x".repeat(501));
+  assert.equal(s.getState().orderNotes.length, 500);
+  assert.match(s.getState().error!, /500/);
+  s.getState().setOrderNotes("Sin mostaza");
+  h.deps.api.createOrder = async () => {
+    throw new ApiError("Cerrada", 409, 0, "CAFE_CLOSED");
+  };
+  await s.getState().submitOrder();
+  assert.equal(s.getState().orderNotes, "Sin mostaza");
+  assert.equal(s.getState().pending, null);
+});
+test("carritos anteriores sin indicaciones se recuperan sin errores", async () => {
+  const h = harness();
+  const s = await ready(h);
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  const old = JSON.parse(h.raw()!);
+  delete old.orderNotes;
+  h.setRaw(JSON.stringify(old));
+  const restored = h.make();
+  await restored.getState().hydrate();
+  assert.equal(restored.getState().orderNotes, "");
+  assert.equal(restored.getState().storageError, null);
+  assert.equal(restored.getState().cart.length, s.getState().cart.length);
+});
 test("persiste antes del envío; un doble toque crea una sola compra", async () => {
   const h = harness();
   const original = h.deps.api.createOrder;
@@ -120,4 +187,74 @@ test("datos locales inválidos bloquean nuevas compras sin borrar el original", 
   assert.ok(s.getState().storageError);
   assert.equal(h.raw(), "{datos corruptos");
   assert.equal(h.calls.length, 0);
+});
+
+test("cerrada permite catálogo y carrito, bloquea pedidos y reabrir permite confirmar", async () => {
+  const h = harness();
+  h.cafeteria.is_open = false;
+  const s = await ready(h);
+  assert.equal(s.getState().products.length, 1);
+  assert.equal(s.getState().cart.length, 1);
+  s.getState().changeQuantity(s.getState().cart[0].key, 1);
+  await s.getState().submitOrder();
+  assert.equal(h.calls.length, 0);
+  assert.equal(s.getState().pending, null);
+  assert.equal(s.getState().cart[0].quantity, 2);
+  assert.match(s.getState().error!, /cerrada/);
+  h.cafeteria.is_open = true;
+  await s.getState().refreshCafeStatus();
+  await s.getState().submitOrder();
+  assert.equal(h.calls.length, 1);
+});
+
+test("cierre entre validar y enviar libera pendiente sin borrar el carrito", async () => {
+  const h = harness();
+  const s = await ready(h);
+  h.deps.api.createOrder = async () => {
+    h.cafeteria.is_open = false;
+    throw new ApiError("La cafetería está cerrada", 409, 0, "CAFE_CLOSED");
+  };
+  await s.getState().submitOrder();
+  assert.equal(s.getState().pending, null);
+  assert.equal(s.getState().cart.length, 1);
+  assert.equal(JSON.parse(h.raw()!).cart.length, 1);
+  assert.equal(JSON.parse(h.raw()!).pending, null);
+  assert.equal(s.getState().cafeteria?.is_open, false);
+});
+
+test("un pedido con respuesta perdida puede recuperarse después del cierre", async () => {
+  const h = harness();
+  const original = h.deps.api.createOrder;
+  h.deps.api.createOrder = async (...args) => {
+    await original(...args);
+    throw new ApiError("Respuesta perdida");
+  };
+  const s = await ready(h);
+  await s.getState().submitOrder();
+  h.cafeteria.is_open = false;
+  await s.getState().refreshCafeStatus();
+  h.deps.api.createOrder = original;
+  const recovered = await s.getState().submitOrder();
+  assert.equal(recovered?.id, h.order.id);
+  assert.deepEqual(h.calls[0], h.calls[1]);
+  assert.equal(s.getState().pending, null);
+});
+
+test("fallo al consultar estado se informa y una respuesta antigua no revierte un cierre", async () => {
+  const h = harness();
+  const s = await ready(h);
+  h.deps.api.cafeStatus = async () => {
+    throw new Error("Sin conexión");
+  };
+  await s.getState().refreshCafeStatus();
+  assert.match(s.getState().cafeError!, /comprobar/);
+  const newer = {
+    is_open: false,
+    updated_at: new Date(Date.now() + 10000).toISOString(),
+  };
+  h.deps.api.cafeStatus = async () => newer;
+  await s.getState().refreshCafeStatus();
+  assert.equal(s.getState().cafeError, null);
+  await s.getState().loadCatalog();
+  assert.equal(s.getState().cafeteria?.is_open, false);
 });

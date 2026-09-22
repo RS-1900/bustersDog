@@ -5,6 +5,11 @@ export const amountSchema = z
   .regex(/^\d+(\.\d{1,2})?$/)
   .refine((value) => Number(value) <= 9999999999.99);
 const uuid = z.string().uuid();
+export const ORDER_NOTES_MAX = 500;
+const notesSchema = z
+  .string()
+  .max(ORDER_NOTES_MAX)
+  .refine((value) => !value.includes("\u0000"));
 export const variantSchema = z.object({
   id: uuid,
   presentation_id: uuid,
@@ -38,8 +43,14 @@ export const productSchema = z.object({
   variants: z.array(variantSchema),
   modifier_groups: z.array(groupSchema),
 });
+export const cafeStatusSchema = z.object({
+  is_open: z.boolean(),
+  updated_at: z.string().datetime(),
+});
+export type CafeStatus = z.infer<typeof cafeStatusSchema>;
 export const catalogSchema = z.object({
   currency: z.literal("MXN"),
+  cafeteria: cafeStatusSchema,
   products: z.array(productSchema),
 });
 export const sessionSchema = z.object({
@@ -66,6 +77,7 @@ export const orderItemSchema = z.object({
   ),
 });
 export const orderSchema = z.object({
+  notes: notesSchema.optional(),
   id: uuid,
   folio: z.string(),
   status: z.enum(["new", "preparing", "ready", "delivered", "cancelled"]),
@@ -76,6 +88,7 @@ export const orderSchema = z.object({
   items: z.array(orderItemSchema),
 });
 export const requestSchema = z.object({
+  notes: notesSchema.optional(),
   items: z
     .array(
       z.object({
@@ -123,6 +136,7 @@ export const savedOrderSchema = orderSchema.extend({
 });
 export type SavedOrder = z.infer<typeof savedOrderSchema>;
 export const persistedSchema = z.object({
+  orderNotes: notesSchema.default(""),
   version: z.literal(1),
   cart: z.array(cartLineSchema).max(9),
   favoriteIds: z.array(uuid),

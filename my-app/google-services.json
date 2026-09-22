@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "72843374951",
+    "project_id": "buster-s",
+    "storage_bucket": "buster-s.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:72843374951:android:7371f0708c4b7ba9933fc2",
+        "android_client_info": {
+          "package_name": "com.bustersdog.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzB278_XEuMQPNQZj5kXXIWsXNutgJ6pk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,12 +1,32 @@
-import { ScrollView, View, Text } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 import { router } from "expo-router";
 import { useProductStore } from "../stores/useProductStore";
-import { Page, Header, Messages, Button, ui } from "../components/ShopUI";
+import {
+  Page,
+  Header,
+  Messages,
+  Button,
+  ui,
+  s,
+  PickupCard,
+} from "../components/OrderUI";
 import { ProductImage } from "../components/ProductImage";
 import { money, totalCents } from "../domain/cart";
+import { ORDER_NOTES_MAX } from "../types/product";
 export default function CheckoutScreen() {
   const {
     cart,
+    orderNotes,
+    setOrderNotes,
+    cafeteria,
+    cafeError,
     pending,
     submitting,
     hydrated,
@@ -23,8 +43,14 @@ export default function CheckoutScreen() {
   return (
     <Page>
       <Header title="Tu pedido" />
-      <ScrollView contentContainerStyle={ui.content}>
-        <Text style={ui.text}>
+      <ScrollView
+        contentContainerStyle={ui.content}
+        keyboardShouldPersistTaps="handled"
+        automaticallyAdjustKeyboardInsets
+      >
+        <Text style={s.eyebrow}>TU PAUSA ESTÁ CASI LISTA</Text>
+        <PickupCard />
+        <Text style={ui.muted}>
           Hasta 3 productos distintos y 3 unidades por producto, sumando tamaños
           y complementos.
         </Text>
@@ -74,15 +100,56 @@ export default function CheckoutScreen() {
                 {money(item.unitCents * item.quantity)}
               </Text>
             </View>
-            <Button
-              title="Quitar producto"
-              secondary
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={`Quitar ${item.productName}`}
               disabled={locked}
               onPress={() => removeFromCart(item.key)}
-            />
+              style={{
+                minHeight: 44,
+                justifyContent: "center",
+                alignSelf: "flex-end",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: "#8A6750",
+                  textDecorationLine: "underline",
+                }}
+              >
+                Quitar del pedido
+              </Text>
+            </Pressable>
           </View>
         ))}
         {!cart.length && <Text style={ui.text}>Tu carrito está vacío.</Text>}
+        {(cart.length > 0 || pending) && (
+          <View style={ui.card}>
+            <Text style={styles.notesTitle}>
+              Indicaciones especiales (opcional)
+            </Text>
+            <Text style={ui.muted}>
+              Si la indicación es para un producto, menciona cuál.
+            </Text>
+            <TextInput
+              accessibilityLabel="Indicaciones especiales del pedido"
+              placeholder="Ej.: hot dog sin mostaza y hamburguesa sin cebolla."
+              placeholderTextColor="#74695E"
+              value={pending ? pending.body.notes || "" : orderNotes}
+              onChangeText={setOrderNotes}
+              editable={!locked}
+              maxLength={ORDER_NOTES_MAX}
+              multiline
+              textAlignVertical="top"
+              style={[styles.notesInput, locked && ui.disabled]}
+            />
+            <Text style={ui.muted}>
+              {(pending ? pending.body.notes || "" : orderNotes).length}/
+              {ORDER_NOTES_MAX} caracteres
+            </Text>
+          </View>
+        )}
         <Messages />
         {pending && (
           <Text style={ui.notice}>
@@ -91,41 +158,67 @@ export default function CheckoutScreen() {
             obtener el folio.
           </Text>
         )}
-        <View style={ui.row}>
-          <Text style={ui.heading}>Total estimado</Text>
-          <Text style={ui.title}>{money(totalCents(cart))}</Text>
+        <View style={ui.card}>
+          <Text style={s.label}>Resumen del pedido</Text>
+          <View style={ui.row}>
+            <Text style={ui.muted}>
+              Productos ({cart.reduce((n, i) => n + i.quantity, 0)})
+            </Text>
+            <Text style={ui.text}>{money(totalCents(cart))}</Text>
+          </View>
+          <View style={{ height: 1, backgroundColor: "#EFE7DC" }} />
+          <View style={ui.row}>
+            <Text style={ui.heading}>Total estimado</Text>
+            <Text style={ui.title}>{money(totalCents(cart))}</Text>
+          </View>
+          <Text style={ui.muted}>
+            El total se confirma con los precios vigentes de la cafetería al
+            enviar el pedido.
+          </Text>
         </View>
-        <Text style={ui.muted}>
-          El total se confirma con los precios vigentes de la cafetería al
-          enviar el pedido.
-        </Text>
+        <Button
+          title="Seguir eligiendo"
+          secondary
+          onPress={() => router.replace("/products")}
+        />
+      </ScrollView>
+      <View style={s.dock}>
         <Button
           title={
             submitting
               ? "Confirmando…"
               : pending
                 ? "Confirmar pedido pendiente"
-                : "Confirmar pedido"
+                : !cafeteria || cafeError
+                  ? "Esperando estado de la cafetería"
+                  : !cafeteria.is_open
+                    ? "Cafetería cerrada"
+                    : "Confirmar pedido"
           }
           disabled={
             submitting ||
             !hydrated ||
             !!storageError ||
+            (!pending && (!cafeteria?.is_open || !!cafeError)) ||
             (!cart.length && !pending)
           }
           onPress={() => void confirm()}
         />
-        <Button
-          title="Seguir eligiendo"
-          secondary
-          onPress={() => router.replace("/products")}
-        />
-        <Button
-          title="Mis pedidos"
-          secondary
-          onPress={() => router.push("/orders")}
-        />
-      </ScrollView>
+      </View>
     </Page>
   );
 }
+const styles = StyleSheet.create({
+  notesTitle: { fontSize: 17, fontWeight: "700", color: "#302314" },
+  notesInput: {
+    minHeight: 110,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: "#D7CFC4",
+    borderRadius: 12,
+    backgroundColor: "#FFFFFF",
+    color: "#302314",
+    fontSize: 16,
+    lineHeight: 22,
+  },
+});

@@ -30,8 +30,37 @@ export function Button({
 export function Page({ children }: PropsWithChildren) {
   return (
     <SafeAreaView style={ui.safe}>
-      <View style={ui.page}>{children}</View>
+      <View style={ui.page}>
+        <CafeStatusBanner />
+        {children}
+      </View>
     </SafeAreaView>
+  );
+}
+export function CafeStatusBanner() {
+  const cafeteria = useProductStore((s) => s.cafeteria);
+  const error = useProductStore((s) => s.cafeError);
+  const refresh = useProductStore((s) => s.refreshCafeStatus);
+  return (
+    <View style={ui.cafeBanner}>
+      <Text accessibilityLiveRegion="polite" style={ui.muted}>
+        {error ||
+          (!cafeteria
+            ? "Consultando si la cafetería está abierta…"
+            : cafeteria.is_open
+              ? "Cafetería abierta · Recibiendo pedidos"
+              : "Cafetería cerrada · No recibimos pedidos en este momento. Puedes seguir viendo el menú y preparando tu carrito.")}
+      </Text>
+      {error && (
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => void refresh()}
+          style={ui.nav}
+        >
+          <Text style={ui.link}>Actualizar estado</Text>
+        </Pressable>
+      )}
+    </View>
   );
 }
 export function Header({
@@ -128,6 +157,11 @@ export function Messages() {
   );
 }
 export const ui = StyleSheet.create({
+  cafeBanner: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: "#FFF4E4",
+  },
   safe: { flex: 1, backgroundColor: "#FFFFFF" },
   page: { flex: 1, width: "100%", maxWidth: 760, alignSelf: "center" },
   header: {

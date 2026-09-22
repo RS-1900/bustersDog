@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { router } from "expo-router";
 import { ProductCard } from "../../components/ProductCard";
+import { PromotionsCarousel } from "../../components/PromotionsCarousel";
 import { Page, Header, Messages, Button, ui } from "../../components/ShopUI";
 import { useProductStore } from "../../stores/useProductStore";
 const normalize = (value: string) =>
@@ -51,21 +52,7 @@ export default function ProductsScreen() {
         keyboardShouldPersistTaps="handled"
         ListHeaderComponent={
           <View style={styles.sections}>
-            <View style={styles.hero}>
-              <View pointerEvents="none" style={styles.ring} />
-              <View pointerEvents="none" style={styles.smallCircle} />
-              <Text style={styles.eyebrow}>TU PAUSA FAVORITA</Text>
-              <Text style={styles.headline}>
-                Un buen día empieza{"\n"}con Buster’s.
-              </Text>
-              <Text style={styles.subtitle}>
-                Algo rico para acompañar tu día.
-              </Text>
-              <View style={styles.heroRule} />
-              <Text style={styles.heroFoot}>
-                Elige a tu gusto · Lo preparamos para ti
-              </Text>
-            </View>
+            <PromotionsCarousel />
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"

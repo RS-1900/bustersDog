@@ -3,11 +3,13 @@ import type { CafeApi } from "../services/api-client";
 import { ApiError } from "../services/api-client";
 import {
   persistedSchema,
+  ORDER_NOTES_MAX,
   type Product,
   type CartItem,
   type SavedOrder,
   type PendingOrder,
   type ShoppingSession,
+  type CafeStatus,
 } from "../types/product";
 import {
   addLine,
@@ -32,8 +34,13 @@ export interface ShopDependencies {
   now(): number;
 }
 export interface ShopState {
+  cafeteria: CafeStatus | null;
+  cafeError: string | null;
+  refreshCafeStatus(): Promise<void>;
   products: Product[];
   cart: CartItem[];
+  orderNotes: string;
+  setOrderNotes(value: string): void;
   favoriteIds: string[];
   orders: SavedOrder[];
   pending: PendingOrder | null;
@@ -60,14 +67,25 @@ const message = (e: unknown) =>
 export function createShopStore(deps: ShopDependencies) {
   let hydration: Promise<void> | undefined;
   let catalogTask: Promise<boolean> | undefined;
+  let cafeTask: Promise<void> | undefined;
   let writes: Promise<void> = Promise.resolve();
   const refreshes = new Map<string, Promise<void>>();
   return createStore<ShopState>((set, get) => {
+    function updateCafeStatus(cafeteria: CafeStatus) {
+      const previous = get().cafeteria;
+      if (
+        !previous ||
+        Date.parse(cafeteria.updated_at) >= Date.parse(previous.updated_at)
+      ) {
+        set({ cafeteria, cafeError: null });
+      }
+    }
     async function save() {
-      const { cart, favoriteIds, orders, pending } = get();
+      const { cart, orderNotes, favoriteIds, orders, pending } = get();
       const value = JSON.stringify({
         version: 1,
         cart,
+        orderNotes,
         favoriteIds,
         orders: orders.slice(0, 50),
         pending,
@@ -101,8 +119,35 @@ export function createShopStore(deps: ShopDependencies) {
       return true;
     }
     return {
+      cafeteria: null,
+      cafeError: null,
+      refreshCafeStatus: () =>
+        (cafeTask ??= (async () => {
+          try {
+            updateCafeStatus(await deps.api.cafeStatus());
+          } catch {
+            set({
+              cafeError:
+                "No pudimos comprobar si la cafetería está abierta. Actualiza el estado antes de pedir.",
+            });
+          } finally {
+            cafeTask = undefined;
+          }
+        })()),
       products: [],
       cart: [],
+      orderNotes: "",
+      setOrderNotes: (value) => {
+        if (!editable()) return;
+        if (value.length > ORDER_NOTES_MAX || value.includes("\u0000")) {
+          set({
+            error: "Escribe indicaciones válidas de hasta 500 caracteres.",
+          });
+          return;
+        }
+        set({ orderNotes: value, error: null, notice: null });
+        remember();
+      },
       favoriteIds: [],
       orders: [],
       pending: null,
@@ -123,6 +168,7 @@ export function createShopStore(deps: ShopDependencies) {
               const data = persistedSchema.parse(JSON.parse(raw));
               set({
                 cart: data.cart,
+                orderNotes: data.orderNotes,
                 favoriteIds: data.favoriteIds,
                 orders: data.orders,
                 pending: data.pending,
@@ -141,7 +187,8 @@ export function createShopStore(deps: ShopDependencies) {
         (catalogTask ??= (async () => {
           set({ loading: true, catalogError: null });
           try {
-            const { products } = await deps.api.catalog();
+            const { products, cafeteria } = await deps.api.catalog();
+            updateCafeStatus(cafeteria);
             set({ products, catalogReady: true });
             return true;
           } catch (e) {
@@ -217,6 +264,11 @@ export function createShopStore(deps: ShopDependencies) {
               throw new Error(
                 "No pudimos comprobar los precios y la disponibilidad. Intenta de nuevo.",
               );
+            if (!get().cafeteria?.is_open || get().cafeError) {
+              throw new Error(
+                "La cafetería está cerrada o no pudimos confirmar su apertura. Tu carrito se conserva para cuando vuelva a recibir pedidos.",
+              );
+            }
             const { cart, products } = get();
             const invalid = validateCart(cart, products);
             if (invalid) throw new Error(invalid);
@@ -245,7 +297,12 @@ export function createShopStore(deps: ShopDependencies) {
             pending = {
               key: deps.uuid(),
               sessionId: session.localId,
-              body: orderBody(updated),
+              body: {
+                ...orderBody(updated),
+                ...(get().orderNotes.trim()
+                  ? { notes: get().orderNotes.trim() }
+                  : {}),
+              },
               createdAt: new Date(deps.now()).toISOString(),
             };
             set({ pending, cart: updated });
@@ -276,6 +333,7 @@ export function createShopStore(deps: ShopDependencies) {
               ...get().orders.filter((o) => o.id !== order.id),
             ].slice(0, 50),
             cart: [],
+            orderNotes: "",
             pending: null,
           });
           await save();
@@ -283,9 +341,18 @@ export function createShopStore(deps: ShopDependencies) {
         } catch (e) {
           if (
             e instanceof ApiError &&
-            ([400, 413].includes(e.status) || e.code === "ORDER_REJECTED")
+            ([400, 413].includes(e.status) ||
+              e.code === "ORDER_REJECTED" ||
+              e.code === "CAFE_CLOSED")
           ) {
             set({ pending: null });
+            if (e.code === "CAFE_CLOSED") {
+              const cafeteria = get().cafeteria;
+              set({
+                cafeteria: cafeteria ? { ...cafeteria, is_open: false } : null,
+              });
+              void get().refreshCafeStatus();
+            }
             await save().catch(() => {});
             void get().loadCatalog();
           }

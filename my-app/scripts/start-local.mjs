@@ -37,8 +37,8 @@ if (!lan) {
   );
   process.exit(1);
 }
-const port = process.env.EXPO_PORT || "8082";
-const api = process.env.EXPO_PUBLIC_API_URL?.trim() || `http://${lan}:5000`;
+const port = process.env.EXPO_PORT || "8081";
+const api = process.env.EXPO_PUBLIC_API_URL?.trim() || "https://cafeteria-api-3hqs.onrender.com";
 const backend =
   process.env.CAFE_API_DIR ||
   path.resolve(appRoot, "../../../API_Express_TS-main/API_Express_TS-main");
@@ -46,7 +46,7 @@ let apiChild, expoChild;
 async function available() {
   try {
     const response = await fetch(api + "/api/v1/catalogo", {
-      signal: AbortSignal.timeout(5000),
+      signal: AbortSignal.timeout(api.startsWith("https://") ? 90000 : 5000),
     });
     if (!response.ok) return false;
     const data = await response.json();

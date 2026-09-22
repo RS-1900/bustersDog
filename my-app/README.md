@@ -11,16 +11,17 @@ cd my-app
 npm ci
 ```
 
-Copia `.env.example` a `.env` y configura **solo el origen** de la API:
+La app se conecta por defecto a la API compartida de Render. No necesitas ejecutar el backend en tu computadora ni crear un archivo `.env`.
+
+Para cambiar de servidor, copia `.env.example` a `.env` y configura **solo el origen** de la API:
 
 ```dotenv
-EXPO_PUBLIC_API_URL=http://localhost:5000
+EXPO_PUBLIC_API_URL=https://cafeteria-api-3hqs.onrender.com
 ```
 
-- Web en la misma computadora: `http://localhost:5000`.
-- Emulador Android: `http://10.0.2.2:5000`.
-- Teléfono físico: dirección LAN de la computadora que ejecuta la API, misma red y acceso permitido al puerto. `localhost` en el teléfono apunta al propio teléfono.
-- Publicación: origen HTTPS accesible desde el dispositivo. No desactivar las protecciones de transporte de una compilación para usar HTTP en producción.
+La misma URL HTTPS sirve para Android, iOS y web. Render gratuito puede tardar al despertar después de un periodo sin uso; la app espera hasta 90 segundos por solicitud.
+
+Si eliges ejecutar un backend local, usa `http://localhost:5000` en web, `http://10.0.2.2:5000` en el emulador Android o la IP LAN de tu computadora en un teléfono físico.
 
 ```sh
 npm start

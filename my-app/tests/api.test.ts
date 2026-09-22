@@ -27,7 +27,11 @@ test("valida contrato y usa headers de compra, sin cookies", async () => {
 });
 test("catálogo válido se transforma, contrato incorrecto se rechaza", async () => {
   const good = createApiClient("https://cafeteria.example", async () =>
-    Response.json({ currency: "MXN", products: [product()] }),
+    Response.json({
+      currency: "MXN",
+      products: [product()],
+      cafeteria: { is_open: true, updated_at: new Date().toISOString() },
+    }),
   );
   assert.equal((await good.catalog()).products.length, 1);
   const bad = createApiClient("https://cafeteria.example", async () =>
@@ -51,5 +55,21 @@ test("errores mantienen código de rechazo y tiempo de espera", async () => {
       e instanceof ApiError &&
       e.code === "ORDER_REJECTED" &&
       e.retryAfter === 60,
+  );
+});
+
+test("consulta pública de apertura y cierre exige un estado booleano válido", async () => {
+  const cafeteria = { is_open: false, updated_at: new Date().toISOString() };
+  const client = createApiClient("https://cafeteria.example", async (url) => {
+    assert.equal(url, "https://cafeteria.example/api/v1/cafeteria");
+    return Response.json(cafeteria);
+  });
+  assert.deepEqual(await client.cafeStatus(), cafeteria);
+  const invalid = createApiClient("https://cafeteria.example", async () =>
+    Response.json({ is_open: "false" }),
+  );
+  await assert.rejects(
+    () => invalid.cafeStatus(),
+    (e: unknown) => e instanceof ApiError && e.status === 502,
   );
 });

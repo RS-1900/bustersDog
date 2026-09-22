@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { View, Text, ScrollView, Pressable } from "react-native";
 import { useLocalSearchParams, router } from "expo-router";
 import { useProductStore } from "../../stores/useProductStore";
-import { Page, Header, Messages, Button, ui } from "../../components/ShopUI";
+import { Page, Header, Messages, Button, ui, s } from "../../components/OrderUI";
 import { ProductImage } from "../../components/ProductImage";
 import { cents, money, selectionError } from "../../domain/cart";
 export default function ProductDetailScreen() {
@@ -59,15 +59,21 @@ export default function ProductDetailScreen() {
     <Page>
       <Header />
       <ScrollView contentContainerStyle={ui.content}>
-        <ProductImage
-          uri={product.image}
-          style={{
-            width: "100%",
-            height: 240,
-            borderRadius: 28,
-            backgroundColor: "#FFF8EF",
-          }}
-        />
+        <View style={s.hero}>
+          <Text style={s.eyebrow}>HECHO PARA TU PAUSA</Text>
+          <ProductImage
+            uri={product.image}
+            style={{
+              width: "100%",
+              height: 185,
+              borderRadius: 28,
+              backgroundColor: "#FFF8EF",
+            }}
+          />
+          <Text style={ui.muted}>
+            Preparado al momento · Recoge en cafetería
+          </Text>
+        </View>
         <View style={ui.row}>
           <Text style={[ui.title, { flex: 1 }]}>{product.name}</Text>
           <Pressable
@@ -170,14 +176,19 @@ export default function ProductDetailScreen() {
         ))}
         <Messages />
         {invalid && <Text style={ui.muted}>{invalid}</Text>}
+      </ScrollView>
+      <View style={s.dock}>
         <View style={ui.row}>
-          <Text style={ui.title}>
-            {variant
-              ? money(cents(variant.price) + extra)
-              : "Sin disponibilidad"}
-          </Text>
+          <View>
+            <Text style={s.eyebrow}>TU ELECCIÓN</Text>
+            <Text style={ui.title}>
+              {variant
+                ? money(cents(variant.price) + extra)
+                : "Sin disponibilidad"}
+            </Text>
+          </View>
           <Button
-            title="Agregar"
+            title="Agregar al carrito +"
             disabled={
               !!invalid ||
               !!pending ||
@@ -188,12 +199,12 @@ export default function ProductDetailScreen() {
             onPress={() => addToCart(product.id, variant!.id, options)}
           />
         </View>
-        <Button
-          title="Ver carrito"
-          secondary
-          onPress={() => router.push("/checkout")}
-        />
-      </ScrollView>
+      </View>
+      <Button
+        title="Ver carrito"
+        secondary
+        onPress={() => router.push("/checkout")}
+      />
     </Page>
   );
 }
