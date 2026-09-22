@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import { View, Text, ScrollView, Pressable } from "react-native";
 import { useLocalSearchParams, router } from "expo-router";
 import { useProductStore } from "../../stores/useProductStore";
-import { Page, Header, Messages, Button, ui, s } from "../../components/OrderUI";
+import {
+  Page,
+  Header,
+  Messages,
+  Button,
+  ui,
+  s,
+} from "../../components/OrderUI";
 import { ProductImage } from "../../components/ProductImage";
 import { cents, money, selectionError } from "../../domain/cart";
 export default function ProductDetailScreen() {

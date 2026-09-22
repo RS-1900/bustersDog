@@ -2,7 +2,14 @@ import { useState } from "react";
 import { ScrollView, Text, View, Pressable, StyleSheet } from "react-native";
 import { router } from "expo-router";
 import { useProductStore } from "../../stores/useProductStore";
-import { Page, Header, Button, ui, s, Progress } from "../../components/OrderUI";
+import {
+  Page,
+  Header,
+  Button,
+  ui,
+  s,
+  Progress,
+} from "../../components/OrderUI";
 import { cents, money, statusLabels } from "../../domain/cart";
 export default function OrdersScreen() {
   const orders = useProductStore((s) => s.orders);
