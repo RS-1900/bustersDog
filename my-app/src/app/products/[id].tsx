@@ -53,9 +53,13 @@ export default function ProductDetailScreen() {
         </View>
       </Page>
     );
+  const productSoldOut =
+    !product.available || !product.variants.some((item) => item.available);
   const variant =
     product.variants.find((v) => v.id === selectedId) ||
-    (!selectedId ? product.variants.find((v) => v.available) : undefined);
+    (!selectedId && product.available
+      ? product.variants.find((v) => v.available)
+      : undefined);
   const invalid = selectionError(product, variant?.id || "", options);
   const extra = product.modifier_groups
     .flatMap((g) => g.options)
@@ -97,6 +101,14 @@ export default function ProductDetailScreen() {
           </Pressable>
         </View>
         <Text style={ui.muted}>{product.category}</Text>
+        {productSoldOut && (
+          <View style={s.soldOutNotice}>
+            <Text style={s.soldOutTitle}>AGOTADO</Text>
+            <Text style={ui.muted}>
+              Este producto sigue en el menú, pero no se puede pedir por ahora.
+            </Text>
+          </View>
+        )}
         <Text style={ui.text}>{product.description}</Text>
         <View style={ui.card}>
           <Text style={ui.heading}>Elige tu presentación</Text>
@@ -107,14 +119,14 @@ export default function ProductDetailScreen() {
                 accessibilityRole="radio"
                 accessibilityState={{
                   checked: variant?.id === v.id,
-                  disabled: !v.available,
+                  disabled: productSoldOut || !v.available,
                 }}
-                disabled={!v.available}
+                disabled={productSoldOut || !v.available}
                 onPress={() => setSelectedId(v.id)}
                 style={[
                   ui.choice,
                   variant?.id === v.id && ui.selected,
-                  !v.available && ui.disabled,
+                  (productSoldOut || !v.available) && ui.disabled,
                 ]}
               >
                 <Text style={ui.link}>
@@ -122,7 +134,9 @@ export default function ProductDetailScreen() {
                   {v.volume_ml ? ` · ${v.volume_ml} ml` : ""}
                 </Text>
                 <Text style={ui.text}>{money(cents(v.price))}</Text>
-                {!v.available && <Text style={ui.muted}>Agotado</Text>}
+                {(productSoldOut || !v.available) && (
+                  <Text style={ui.muted}>Agotado</Text>
+                )}
               </Pressable>
             ))}
           </View>
@@ -198,6 +212,7 @@ export default function ProductDetailScreen() {
             title="Agregar al carrito +"
             disabled={
               !!invalid ||
+              productSoldOut ||
               !!pending ||
               submitting ||
               !hydrated ||

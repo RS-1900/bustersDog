@@ -189,6 +189,20 @@ export const s = StyleSheet.create({
     alignItems: "center",
     gap: 12,
   },
+  soldOutNotice: {
+    backgroundColor: "#F2E8DC",
+    borderColor: "#D7C4AE",
+    borderWidth: 1,
+    borderRadius: 18,
+    padding: 16,
+    gap: 5,
+  },
+  soldOutTitle: {
+    color: "#694222",
+    fontSize: 13,
+    fontWeight: "800",
+    letterSpacing: 1.5,
+  },
 });
 export const ui = {
   ...base,

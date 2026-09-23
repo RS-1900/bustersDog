@@ -7,15 +7,23 @@ import { cents, money } from "../domain/cart";
 export function ProductCard({ product }: { product: Product }) {
   const favorite = useProductStore((s) => s.favoriteIds.includes(product.id));
   const toggle = useProductStore((s) => s.toggleFavorite);
+  const availableVariants = product.variants.filter(
+    (variant) => variant.available,
+  );
+  const soldOut = !product.available || availableVariants.length === 0;
+  const displayPrice = availableVariants.length
+    ? Math.min(...availableVariants.map((variant) => cents(variant.price)))
+    : cents(product.price);
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, soldOut && styles.soldOutWrapper]}>
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={`Ver ${product.name}`}
         onPress={() => router.push(`/products/${product.id}`)}
-        style={styles.card}
+        style={[styles.card, soldOut && styles.soldOutCard]}
       >
         <ProductImage uri={product.image} style={styles.image} />
+        {soldOut && <Text style={styles.soldOutBadge}>AGOTADO</Text>}
         <Text style={styles.category}>
           {product.category === "bebida"
             ? "BEBIDA"
@@ -27,10 +35,8 @@ export function ProductCard({ product }: { product: Product }) {
           {product.name}
         </Text>
         <Text style={styles.price}>
-          {product.variants.filter((v) => v.available).length > 1
-            ? "Desde "
-            : ""}
-          {money(cents(product.price))}
+          {availableVariants.length > 1 ? "Desde " : ""}
+          {money(displayPrice)}
         </Text>
       </Pressable>
       <Pressable
@@ -49,6 +55,7 @@ export function ProductCard({ product }: { product: Product }) {
 }
 const styles = StyleSheet.create({
   wrapper: { width: "47.5%", marginTop: 48, marginBottom: 8 },
+  soldOutWrapper: { opacity: 0.72 },
   card: {
     backgroundColor: "#FFD18B",
     borderWidth: 1,
@@ -60,6 +67,7 @@ const styles = StyleSheet.create({
     height: 224,
     alignItems: "center",
   },
+  soldOutCard: { backgroundColor: "#E8DED2", borderColor: "#D5C8BA" },
   image: {
     width: 112,
     height: 112,
@@ -91,6 +99,20 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     marginTop: "auto",
     textAlign: "center",
+  },
+  soldOutBadge: {
+    position: "absolute",
+    top: 12,
+    right: 10,
+    backgroundColor: "#694222",
+    color: "#FFFFFF",
+    borderRadius: 12,
+    paddingHorizontal: 9,
+    paddingVertical: 4,
+    fontSize: 9,
+    fontWeight: "800",
+    letterSpacing: 1,
+    overflow: "hidden",
   },
   heart: {
     position: "absolute",
