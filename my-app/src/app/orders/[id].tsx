@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import {
+  AppState,
   Modal,
   Pressable,
   ScrollView,
@@ -40,6 +41,15 @@ export default function OrderScreen() {
         .orders.find((item) => item.id === id);
       if (current && !["delivered", "cancelled"].includes(current.status))
         void refreshOrder(id);
+      const timer = setInterval(() => {
+        if (AppState.currentState !== "active") return;
+        const latest = shopStore
+          .getState()
+          .orders.find((item) => item.id === id);
+        if (latest && !["delivered", "cancelled"].includes(latest.status))
+          void shopStore.getState().refreshOrder(id);
+      }, 20000);
+      return () => clearInterval(timer);
     }, [id, hydrated, refreshOrder, clearMessage]),
   );
   return (

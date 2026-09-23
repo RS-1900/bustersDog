@@ -58,11 +58,7 @@ export function startOrderRealtime(): () => void {
   }
   function connectIfNeeded() {
     if (disposed || AppState.currentState !== "active") return;
-    const desired = desiredRooms();
-    if (!desired.size) {
-      syncRooms();
-      if (client.connected) client.disconnect();
-    } else if (!client.connected) client.connect();
+    if (!client.connected) client.connect();
     else syncRooms();
   }
   const onConnect = () => {
@@ -81,10 +77,14 @@ export function startOrderRealtime(): () => void {
     shopStore.getState().applyOrderStatus(parsed.data);
     syncRooms();
   };
+  const onCatalogUpdated = () => {
+    void shopStore.getState().loadCatalog();
+  };
   client.on("connect", onConnect);
   client.on("disconnect", onDisconnect);
   client.on("connect_error", onConnectError);
   client.on("order-status-updated", onStatus);
+  client.on("catalog-updated", onCatalogUpdated);
   const unsubscribe = shopStore.subscribe(() => connectIfNeeded());
   const appState = AppState.addEventListener("change", (state) => {
     if (state === "active") connectIfNeeded();
@@ -105,6 +105,7 @@ export function startOrderRealtime(): () => void {
     client.off("disconnect", onDisconnect);
     client.off("connect_error", onConnectError);
     client.off("order-status-updated", onStatus);
+    client.off("catalog-updated", onCatalogUpdated);
     client.disconnect();
   };
 }

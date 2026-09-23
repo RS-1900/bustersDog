@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   FlatList,
   Text,
@@ -10,7 +10,7 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import { ProductCard } from "../../components/ProductCard";
 import { PromotionsCarousel } from "../../components/PromotionsCarousel";
 import { Page, Header, Messages, Button, ui } from "../../components/ShopUI";
@@ -30,6 +30,11 @@ export default function ProductsScreen() {
   );
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
+  useFocusEffect(
+    useCallback(() => {
+      void loadCatalog();
+    }, [loadCatalog]),
+  );
   const categories = Array.from(
     new Map(products.map((p) => [p.category_id, p.category])).entries(),
   );
