@@ -69,8 +69,10 @@ export default function ProductDetailScreen() {
   return (
     <Page>
       <Header />
-      <ScrollView contentContainerStyle={ui.content}>
-        <View style={s.hero}>
+      <ScrollView
+        contentContainerStyle={[ui.content, { gap: 12, paddingBottom: 16 }]}
+      >
+        <View style={[s.hero, { padding: 16, gap: 8 }]}>
           <Text style={s.eyebrow}>HECHO PARA TU PAUSA</Text>
           <ProductImage
             uri={product.image}
@@ -85,22 +87,37 @@ export default function ProductDetailScreen() {
             Preparado al momento · Recoge en cafetería
           </Text>
         </View>
-        <View style={ui.row}>
-          <Text style={[ui.title, { flex: 1 }]}>{product.name}</Text>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={
-              favorite ? "Quitar de favoritos" : "Agregar a favoritos"
-            }
-            onPress={() => toggleFavorite(product.id)}
-            style={{ padding: 12 }}
-          >
-            <Text style={{ fontSize: 30, color: "#B31944" }}>
-              {favorite ? "♥" : "♡"}
+        <View style={{ gap: 4 }}>
+          <View style={ui.row}>
+            <Text style={[ui.title, { flex: 1, fontSize: 24, lineHeight: 30 }]}>
+              {product.name}
             </Text>
-          </Pressable>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={
+                favorite ? "Quitar de favoritos" : "Agregar a favoritos"
+              }
+              onPress={() => toggleFavorite(product.id)}
+              style={{
+                width: 44,
+                height: 44,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ fontSize: 30, color: "#B31944" }}>
+                {favorite ? "♥" : "♡"}
+              </Text>
+            </Pressable>
+          </View>
+          <Text style={[ui.muted, { fontWeight: "600" }]}>
+            {product.category.trim().charAt(0).toLocaleUpperCase("es-MX") +
+              product.category.trim().slice(1)}
+          </Text>
+          {product.description ? (
+            <Text style={ui.text}>{product.description}</Text>
+          ) : null}
         </View>
-        <Text style={ui.muted}>{product.category}</Text>
         {productSoldOut && (
           <View style={s.soldOutNotice}>
             <Text style={s.soldOutTitle}>AGOTADO</Text>
@@ -109,8 +126,7 @@ export default function ProductDetailScreen() {
             </Text>
           </View>
         )}
-        <Text style={ui.text}>{product.description}</Text>
-        <View style={ui.card}>
+        <View style={[ui.card, { padding: 16, gap: 8 }]}>
           <Text style={ui.heading}>Elige tu presentación</Text>
           <View style={ui.wrap}>
             {product.variants.map((v) => (
@@ -142,7 +158,7 @@ export default function ProductDetailScreen() {
           </View>
         </View>
         {product.modifier_groups.map((group) => (
-          <View key={group.id} style={ui.card}>
+          <View key={group.id} style={[ui.card, { padding: 16, gap: 8 }]}>
             <Text style={ui.heading}>{group.name}</Text>
             <Text style={ui.muted}>
               {group.min_selections
@@ -196,21 +212,33 @@ export default function ProductDetailScreen() {
           </View>
         ))}
         <Messages />
-        {invalid && <Text style={ui.muted}>{invalid}</Text>}
+        {invalid && !productSoldOut && <Text style={ui.muted}>{invalid}</Text>}
       </ScrollView>
-      <View style={s.dock}>
-        <View style={ui.row}>
-          <View>
-            <Text style={s.eyebrow}>TU ELECCIÓN</Text>
-            <Text style={ui.title}>
-              {variant
-                ? money(cents(variant.price) + extra)
-                : "Sin disponibilidad"}
+      <View style={[s.dock, { paddingTop: 10, gap: 8 }]}>
+        <View style={{ gap: 10 }}>
+          <View style={{ gap: 4, minWidth: 0 }}>
+            <Text style={s.eyebrow}>
+              {productSoldOut ? "DISPONIBILIDAD" : "TU ELECCIÓN"}
+            </Text>
+            <Text
+              style={{
+                color: "#513821",
+                fontSize: 20,
+                lineHeight: 26,
+                fontWeight: "700",
+              }}
+            >
+              {productSoldOut
+                ? "Agotado por ahora"
+                : variant
+                  ? money(cents(variant.price) + extra)
+                  : "Elige una presentación"}
             </Text>
           </View>
           <Button
-            title="Agregar al carrito +"
+            title={productSoldOut ? "Producto agotado" : "Agregar al carrito +"}
             disabled={
+              !variant ||
               !!invalid ||
               productSoldOut ||
               !!pending ||
@@ -218,15 +246,18 @@ export default function ProductDetailScreen() {
               !hydrated ||
               !!storageError
             }
-            onPress={() => addToCart(product.id, variant!.id, options)}
+            onPress={() => {
+              if (!variant || productSoldOut || invalid) return;
+              addToCart(product.id, variant.id, options);
+            }}
           />
         </View>
+        <Button
+          title="Ver carrito"
+          secondary
+          onPress={() => router.push("/checkout")}
+        />
       </View>
-      <Button
-        title="Ver carrito"
-        secondary
-        onPress={() => router.push("/checkout")}
-      />
     </Page>
   );
 }

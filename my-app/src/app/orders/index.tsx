@@ -33,15 +33,14 @@ export default function OrdersScreen() {
   return (
     <Page>
       <Header title="Mis pedidos" />
-      <ScrollView contentContainerStyle={ui.content}>
-        <View style={s.folioCard}>
+      <ScrollView
+        contentContainerStyle={[ui.content, { gap: 12, paddingTop: 8 }]}
+      >
+        <View style={[s.folioCard, { padding: 16, gap: 6 }]}>
           <View pointerEvents="none" style={s.folioRing} />
           <View pointerEvents="none" style={s.folioCircle} />
           <Text style={s.eyebrow}>TUS PAUSAS EN BUSTER’S</Text>
-          <Text style={styles.title}>Cada antojo,{"\n"}una buena pausa.</Text>
-          <Text style={ui.text}>
-            Aquí encuentras tus pedidos y sus detalles.
-          </Text>
+          <Text style={styles.title}>Tus pausas, en un vistazo.</Text>
           <View style={styles.summary}>
             <Text style={styles.summaryText}>
               {counts.Activos}{" "}
@@ -70,7 +69,7 @@ export default function OrdersScreen() {
             </Pressable>
           ))}
         </View>
-        <View style={ui.row}>
+        <View style={[ui.row, { flexWrap: "wrap", gap: 4 }]}>
           <Text style={s.eyebrow}>
             {filter === "Activos"
               ? "EN MARCHA"
@@ -107,8 +106,15 @@ export default function OrdersScreen() {
             >
               <View style={styles.top}>
                 <View style={{ flex: 1, gap: 3 }}>
-                  <Text style={s.eyebrow}>PEDIDO</Text>
                   <Text style={styles.folio}>{order.folio}</Text>
+                  <Text style={styles.date}>
+                    {new Date(order.created_at).toLocaleString("es-MX", {
+                      day: "numeric",
+                      month: "short",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </Text>
                 </View>
                 <View
                   style={[
@@ -127,14 +133,6 @@ export default function OrdersScreen() {
                   </Text>
                 </View>
               </View>
-              <Text style={ui.muted}>
-                {new Date(order.created_at).toLocaleString("es-MX", {
-                  day: "numeric",
-                  month: "short",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </Text>
               <View style={styles.products}>
                 {order.items.slice(0, 2).map((item) => (
                   <Text key={item.id} style={ui.text} numberOfLines={1}>
@@ -152,11 +150,11 @@ export default function OrdersScreen() {
               </View>
               {active(order.status) && <Progress status={order.status} />}
               <View style={styles.footer}>
-                <View>
+                <View style={styles.amount}>
+                  <Text style={styles.total}>{money(cents(order.total))}</Text>
                   <Text style={ui.muted}>
                     {quantity} {quantity === 1 ? "unidad" : "unidades"}
                   </Text>
-                  <Text style={styles.total}>{money(cents(order.total))}</Text>
                 </View>
                 <Text style={styles.detail}>
                   {active(order.status) ? "Seguir pedido" : "Ver detalle"} →
@@ -209,13 +207,13 @@ export default function OrdersScreen() {
 }
 const styles = StyleSheet.create({
   title: {
-    fontSize: 28,
-    lineHeight: 34,
+    fontSize: 21,
+    lineHeight: 27,
     fontWeight: "800",
     color: "#493018",
     letterSpacing: -0.7,
   },
-  summary: { gap: 5, marginTop: 8 },
+  summary: { gap: 2 },
   summaryText: { fontSize: 13, fontWeight: "700", color: "#8A571E" },
   filters: {
     flexDirection: "row",
@@ -239,27 +237,36 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#EDE3D7",
     borderRadius: 24,
-    padding: 20,
-    gap: 12,
+    padding: 14,
+    gap: 8,
   },
   top: { flexDirection: "row", alignItems: "center", gap: 8, flexWrap: "wrap" },
-  folio: { fontSize: 23, fontWeight: "800", color: "#513821" },
+  folio: { fontSize: 21, fontWeight: "800", color: "#513821" },
+  date: { fontSize: 12, lineHeight: 17, color: "#74695E" },
+  amount: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: 6,
+    flex: 1,
+  },
   badge: { paddingHorizontal: 10, paddingVertical: 7, borderRadius: 10 },
   products: {
     backgroundColor: "#FAF7F2",
     borderRadius: 14,
-    padding: 12,
-    gap: 4,
+    padding: 9,
+    gap: 2,
   },
   footer: {
     borderTopWidth: 1,
     borderColor: "#F0E9DF",
-    paddingTop: 14,
+    paddingTop: 8,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     gap: 8,
+    flexWrap: "wrap",
   },
-  total: { fontSize: 22, fontWeight: "800", color: "#513821" },
+  total: { fontSize: 19, fontWeight: "800", color: "#513821" },
   detail: { fontSize: 13, fontWeight: "700", color: "#9A601A" },
 });

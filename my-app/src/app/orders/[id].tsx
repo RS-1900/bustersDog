@@ -17,7 +17,6 @@ import {
   ui,
   s,
   Progress,
-  PickupCard,
 } from "../../components/OrderUI";
 import { cents, money, statusLabels } from "../../domain/cart";
 export default function OrderScreen() {
@@ -46,7 +45,9 @@ export default function OrderScreen() {
   return (
     <Page>
       <Header title="Seguimiento" />
-      <ScrollView contentContainerStyle={ui.content}>
+      <ScrollView
+        contentContainerStyle={[ui.content, { gap: 12, paddingTop: 8 }]}
+      >
         {!order ? (
           <Text style={ui.text}>
             {hydrated
@@ -59,7 +60,8 @@ export default function OrderScreen() {
               style={[
                 s.folioCard,
                 {
-                  paddingVertical: 28,
+                  padding: 18,
+                  gap: 8,
                 },
               ]}
             >
@@ -68,34 +70,28 @@ export default function OrderScreen() {
               <Text style={[s.eyebrow, { color: "#96601E" }]}>
                 TU PEDIDO EN BUSTER’S
               </Text>
-              <Text
-                style={{
-                  fontSize: 38,
-                  fontWeight: "800",
-                  color: "#493018",
-                  letterSpacing: -0.7,
-                }}
-              >
-                {order.folio}
-              </Text>
-              <Text
-                style={{ color: "#775B40", fontSize: 17, fontWeight: "600" }}
-              >
-                {statusLabels[order.status]}
-              </Text>
-              <View
-                style={{
-                  width: 34,
-                  height: 3,
-                  backgroundColor: "#D98E29",
-                  borderRadius: 3,
-                }}
-              />
+              <View style={styles.folioRow}>
+                <Text
+                  style={{
+                    fontSize: 30,
+                    fontWeight: "800",
+                    color: "#493018",
+                    letterSpacing: -0.7,
+                  }}
+                >
+                  {order.folio}
+                </Text>
+                <Text
+                  style={{ color: "#775B40", fontSize: 17, fontWeight: "600" }}
+                >
+                  {statusLabels[order.status]}
+                </Text>
+              </View>
               <Text style={{ color: "#86613A", fontSize: 12 }}>
                 {new Date(order.created_at).toLocaleString("es-MX")}
               </Text>
             </View>
-            <View style={ui.card}>
+            <View style={[ui.card, styles.compactCard]}>
               <Text style={s.label}>
                 {order.status === "ready"
                   ? "¡Ya puedes pasar por tu pedido!"
@@ -115,30 +111,38 @@ export default function OrderScreen() {
                       : "Tu pausa está en marcha. Consulta aquí el estado de tu pedido."}
               </Text>
               <Progress status={order.status} />
+              <Text style={styles.pickup}>Recoger en cafetería · Campus</Text>
             </View>
-            <PickupCard />
-            <Text style={s.eyebrow}>LO QUE ELEGISTE</Text>
-            {order.items.map((item) => (
-              <View key={item.id} style={ui.card}>
-                <Text style={ui.heading}>
-                  {item.quantity} × {item.product_name}
-                </Text>
-                <Text style={ui.text}>
-                  {item.presentation_label}
-                  {item.volume_ml ? ` · ${item.volume_ml} ml` : ""}
-                </Text>
-                {item.options.map((option) => (
-                  <Text key={option.option_id} style={ui.muted}>
-                    {option.option_name} (+{money(cents(option.price))} por
-                    unidad)
+            <View style={[ui.card, styles.compactCard]}>
+              <Text style={s.eyebrow}>LO QUE ELEGISTE</Text>
+              {order.items.map((item) => (
+                <View key={item.id} style={styles.item}>
+                  <View style={styles.itemHeader}>
+                    <Text style={styles.itemName}>
+                      {item.quantity} × {item.product_name}
+                    </Text>
+                    <Text style={styles.itemPrice}>
+                      {money(cents(item.line_total))}
+                    </Text>
+                  </View>
+                  <Text style={ui.muted}>
+                    {item.presentation_label}
+                    {item.volume_ml ? ` · ${item.volume_ml} ml` : ""}
                   </Text>
-                ))}
-                <Text style={ui.text}>{money(cents(item.line_total))}</Text>
+                  {item.options.map((option) => (
+                    <Text key={option.option_id} style={ui.muted}>
+                      {option.option_name}
+                      {cents(option.price) > 0
+                        ? ` (+${money(cents(option.price))} por unidad)`
+                        : ""}
+                    </Text>
+                  ))}
+                </View>
+              ))}
+              <View style={styles.folioRow}>
+                <Text style={s.label}>Total confirmado</Text>
+                <Text style={styles.total}>{money(cents(order.total))}</Text>
               </View>
-            ))}
-            <View style={ui.row}>
-              <Text style={ui.heading}>Total confirmado</Text>
-              <Text style={ui.title}>{money(cents(order.total))}</Text>
             </View>
             {!!order.notes && (
               <View style={ui.card}>
@@ -236,6 +240,50 @@ export default function OrderScreen() {
 }
 
 const styles = StyleSheet.create({
+  compactCard: { padding: 16, gap: 10, borderRadius: 22 },
+  folioRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 8,
+  },
+  pickup: {
+    fontSize: 12,
+    lineHeight: 18,
+    color: "#86613A",
+    borderTopWidth: 1,
+    borderColor: "#EFE7DC",
+    paddingTop: 8,
+  },
+  item: {
+    gap: 3,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderColor: "#EFE7DC",
+  },
+  itemHeader: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+    gap: 8,
+  },
+  itemName: {
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: "65%",
+    fontSize: 15,
+    lineHeight: 21,
+    fontWeight: "700",
+    color: "#513821",
+  },
+  itemPrice: {
+    fontSize: 15,
+    lineHeight: 21,
+    fontWeight: "700",
+    color: "#633600",
+  },
+  total: { fontSize: 22, lineHeight: 28, fontWeight: "800", color: "#493018" },
   modalBackdrop: {
     flex: 1,
     padding: 24,

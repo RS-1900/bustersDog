@@ -44,7 +44,7 @@ export default function CheckoutScreen() {
     <Page>
       <Header title="Tu pedido" />
       <ScrollView
-        contentContainerStyle={ui.content}
+        contentContainerStyle={[ui.content, { gap: 12, paddingBottom: 16 }]}
         keyboardShouldPersistTaps="handled"
         automaticallyAdjustKeyboardInsets
       >
@@ -55,14 +55,19 @@ export default function CheckoutScreen() {
           y complementos.
         </Text>
         {cart.map((item) => (
-          <View key={item.key} style={ui.card}>
-            <View style={ui.row}>
+          <View key={item.key} style={[ui.card, styles.productCard]}>
+            <View style={[ui.row, { alignItems: "flex-start", gap: 10 }]}>
               <ProductImage
                 uri={item.image}
                 style={{ width: 64, height: 64, borderRadius: 16 }}
               />
-              <View style={{ flex: 1, gap: 4 }}>
-                <Text style={[ui.heading, { textAlign: "left", fontSize: 17 }]}>
+              <View style={{ flex: 1, minWidth: 0, gap: 2 }}>
+                <Text
+                  style={[
+                    ui.heading,
+                    { textAlign: "left", fontSize: 16, lineHeight: 20 },
+                  ]}
+                >
                   {item.productName}
                 </Text>
                 <Text style={ui.muted}>
@@ -74,6 +79,15 @@ export default function CheckoutScreen() {
                 )}
                 <Text style={ui.muted}>{money(item.unitCents)} por unidad</Text>
               </View>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={`Quitar ${item.productName} del pedido`}
+                disabled={locked}
+                onPress={() => removeFromCart(item.key)}
+                style={[styles.remove, locked && ui.disabled]}
+              >
+                <Text style={styles.removeIcon}>×</Text>
+              </Pressable>
             </View>
             <View style={ui.row}>
               <View style={ui.row}>
@@ -100,27 +114,6 @@ export default function CheckoutScreen() {
                 {money(item.unitCents * item.quantity)}
               </Text>
             </View>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel={`Quitar ${item.productName}`}
-              disabled={locked}
-              onPress={() => removeFromCart(item.key)}
-              style={{
-                minHeight: 44,
-                justifyContent: "center",
-                alignSelf: "flex-end",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: "#8A6750",
-                  textDecorationLine: "underline",
-                }}
-              >
-                Quitar del pedido
-              </Text>
-            </Pressable>
           </View>
         ))}
         {!cart.length && <Text style={ui.text}>Tu carrito está vacío.</Text>}
@@ -209,6 +202,16 @@ export default function CheckoutScreen() {
   );
 }
 const styles = StyleSheet.create({
+  productCard: { padding: 14, gap: 10, borderRadius: 20 },
+  remove: {
+    width: 44,
+    height: 44,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 22,
+    backgroundColor: "#FFF8EF",
+  },
+  removeIcon: { fontSize: 24, lineHeight: 28, color: "#8A6750" },
   notesTitle: { fontSize: 17, fontWeight: "700", color: "#302314" },
   notesInput: {
     minHeight: 110,
