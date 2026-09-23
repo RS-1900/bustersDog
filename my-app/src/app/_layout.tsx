@@ -7,6 +7,7 @@ import * as NativeSplash from "expo-splash-screen";
 import BrandSplash from "../components/splash";
 import { shopStore } from "../stores/useProductStore";
 import { startOrderNotifications } from "../services/order-notifications";
+import { startOrderRealtime } from "../services/socket";
 import { CartToast } from "../components/CartToast";
 void NativeSplash.preventAutoHideAsync().catch(() => {});
 export default function RootLayout() {
@@ -20,6 +21,7 @@ export default function RootLayout() {
     void shopStore.getState().loadCatalog();
   }, []);
   useEffect(() => startOrderNotifications(), []);
+  useEffect(() => startOrderRealtime(), []);
   useEffect(() => {
     const refresh = () => {
       if (AppState.currentState === "active") {

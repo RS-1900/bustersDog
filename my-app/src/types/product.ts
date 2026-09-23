@@ -76,11 +76,18 @@ export const orderItemSchema = z.object({
     }),
   ),
 });
+export const orderStatusSchema = z.enum([
+  "new",
+  "preparing",
+  "ready",
+  "delivered",
+  "cancelled",
+]);
 export const orderSchema = z.object({
   notes: notesSchema.optional(),
   id: uuid,
   folio: z.string(),
-  status: z.enum(["new", "preparing", "ready", "delivered", "cancelled"]),
+  status: orderStatusSchema,
   currency: z.literal("MXN"),
   total: amountSchema,
   created_at: z.string().datetime(),

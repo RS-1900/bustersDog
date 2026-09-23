@@ -10,6 +10,7 @@ import {
   type PendingOrder,
   type ShoppingSession,
   type CafeStatus,
+  type Order,
 } from "../types/product";
 import {
   addLine,
@@ -62,6 +63,11 @@ export interface ShopState {
   submitOrder(): Promise<SavedOrder | null>;
   refreshOrder(id: string): Promise<void>;
   cancelOrder(id: string): Promise<boolean>;
+  applyOrderStatus(event: {
+    orderId: string;
+    status: Order["status"];
+    updatedAt: string;
+  }): void;
   clearMessage(): void;
   clearNotice(): void;
 }
@@ -473,6 +479,25 @@ export function createShopStore(deps: ShopDependencies) {
         } finally {
           set({ cancellingOrderId: null });
         }
+      },
+      applyOrderStatus: ({ orderId, status, updatedAt }) => {
+        const current = get().orders.find((order) => order.id === orderId);
+        if (!current || Date.parse(updatedAt) < Date.parse(current.updated_at))
+          return;
+        set({
+          orders: get().orders.map((order) =>
+            order.id === orderId
+              ? {
+                  ...order,
+                  status,
+                  updated_at: updatedAt,
+                  checkedAt: new Date(deps.now()).toISOString(),
+                }
+              : order,
+          ),
+          error: null,
+        });
+        remember();
       },
     };
   });

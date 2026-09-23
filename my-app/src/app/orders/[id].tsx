@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 import {
-  AppState,
   Modal,
   Pressable,
   ScrollView,
@@ -9,7 +8,7 @@ import {
   View,
 } from "react-native";
 import { useFocusEffect, useLocalSearchParams, router } from "expo-router";
-import { useProductStore, shopStore } from "../../stores/useProductStore";
+import { shopStore, useProductStore } from "../../stores/useProductStore";
 import {
   Page,
   Header,
@@ -37,24 +36,11 @@ export default function OrderScreen() {
     useCallback(() => {
       if (!hydrated) return;
       clearMessage();
-      function update() {
-        const current = shopStore.getState().orders.find((o) => o.id === id);
-        if (
-          current &&
-          AppState.currentState === "active" &&
-          !["delivered", "cancelled"].includes(current.status)
-        )
-          void refreshOrder(id);
-      }
-      update();
-      const timer = setInterval(update, 15000);
-      const subscription = AppState.addEventListener("change", (state) => {
-        if (state === "active") update();
-      });
-      return () => {
-        clearInterval(timer);
-        subscription.remove();
-      };
+      const current = shopStore
+        .getState()
+        .orders.find((item) => item.id === id);
+      if (current && !["delivered", "cancelled"].includes(current.status))
+        void refreshOrder(id);
     }, [id, hydrated, refreshOrder, clearMessage]),
   );
   return (

@@ -217,6 +217,26 @@ test("el comprador cancela únicamente un pedido recibido", async () => {
   assert.match(s.getState().notice!, /cancelado/);
   assert.equal(await s.getState().cancelOrder(order.id), false);
 });
+test("evento realtime actualiza solo el pedido correspondiente y descarta eventos antiguos", async () => {
+  const h = harness();
+  const s = await ready(h);
+  const order = await s.getState().submitOrder();
+  assert.ok(order);
+  const updatedAt = new Date(Date.parse(order.updated_at) + 1000).toISOString();
+  s.getState().applyOrderStatus({
+    orderId: order.id,
+    status: "preparing",
+    updatedAt,
+  });
+  assert.equal(s.getState().orders[0].status, "preparing");
+  assert.equal(s.getState().orders[0].updated_at, updatedAt);
+  s.getState().applyOrderStatus({
+    orderId: order.id,
+    status: "new",
+    updatedAt: order.updated_at,
+  });
+  assert.equal(s.getState().orders[0].status, "preparing");
+});
 test("datos locales inválidos bloquean nuevas compras sin borrar el original", async () => {
   const h = harness();
   h.setRaw("{datos corruptos");
