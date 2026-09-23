@@ -9,6 +9,18 @@ async function ready(h: ReturnType<typeof harness>) {
   s.getState().addToCart(h.p.id, h.p.variants[0].id, []);
   return s;
 }
+test("aviso del carrito incluye el producto y puede cerrarse sin borrar errores", async () => {
+  const h = harness();
+  const s = h.make();
+  await s.getState().hydrate();
+  await s.getState().loadCatalog();
+  assert.equal(s.getState().addToCart(h.p.id, h.p.variants[0].id, []), true);
+  assert.match(s.getState().notice!, new RegExp(h.p.name));
+  s.setState({ error: "Error independiente" });
+  s.getState().clearNotice();
+  assert.equal(s.getState().notice, null);
+  assert.equal(s.getState().error, "Error independiente");
+});
 test("indicaciones se conservan al reiniciar y se limpian al confirmar", async () => {
   const h = harness();
   const first = await ready(h);
@@ -177,6 +189,33 @@ test("sesión perdida no se reemplaza si existe un pedido pendiente", async () =
   await s.getState().submitOrder();
   assert.match(s.getState().error!, /sesión del pedido pendiente/);
   assert.ok(s.getState().pending);
+});
+test("sesión rechazada por el servidor se renueva antes de crear el pedido", async () => {
+  const h = harness();
+  const original = h.deps.api.createOrder;
+  let attempts = 0;
+  h.deps.api.createOrder = async (...args) => {
+    attempts++;
+    if (attempts === 1) throw new ApiError("La sesión de compra terminó", 401);
+    return original(...args);
+  };
+  const s = await ready(h);
+  const order = await s.getState().submitOrder();
+  assert.ok(order);
+  assert.equal(attempts, 2);
+  assert.equal(s.getState().pending, null);
+  assert.equal(s.getState().cart.length, 0);
+  assert.equal(h.calls.length, 1);
+});
+test("el comprador cancela únicamente un pedido recibido", async () => {
+  const h = harness();
+  const s = await ready(h);
+  const order = await s.getState().submitOrder();
+  assert.ok(order);
+  assert.equal(await s.getState().cancelOrder(order.id), true);
+  assert.equal(s.getState().orders[0].status, "cancelled");
+  assert.match(s.getState().notice!, /cancelado/);
+  assert.equal(await s.getState().cancelOrder(order.id), false);
 });
 test("datos locales inválidos bloquean nuevas compras sin borrar el original", async () => {
   const h = harness();

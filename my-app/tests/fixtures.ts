@@ -70,6 +70,7 @@ export function harness() {
         return order;
       },
       getOrder: async () => order,
+      cancelOrder: async () => ({ ...order, status: "cancelled" as const }),
     },
   };
   return {

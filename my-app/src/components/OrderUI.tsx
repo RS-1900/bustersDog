@@ -25,7 +25,7 @@ export function Header({ title = "A tu gusto" }: { title?: string }) {
         onPress={() => router.replace("/products")}
         style={s.back}
       >
-        <Text style={{ fontSize: 30, color: "#513821" }}>‹</Text>
+        <Text style={s.backIcon}>←</Text>
       </Pressable>
       <View style={{ flex: 1 }}>
         <Text style={s.brand}>Buster’s</Text>
@@ -126,7 +126,7 @@ export const s = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 22,
-    paddingVertical: 16,
+    paddingVertical: 14,
     gap: 12,
   },
   back: {
@@ -136,6 +136,12 @@ export const s = StyleSheet.create({
     backgroundColor: "#FFF",
     alignItems: "center",
     justifyContent: "center",
+  },
+  backIcon: {
+    fontSize: 22,
+    lineHeight: 24,
+    color: "#513821",
+    fontWeight: "700",
   },
   brand: {
     fontSize: 24,

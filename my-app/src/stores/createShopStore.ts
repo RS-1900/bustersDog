@@ -52,6 +52,7 @@ export interface ShopState {
   notice: string | null;
   storageError: string | null;
   submitting: boolean;
+  cancellingOrderId: string | null;
   hydrate(): Promise<void>;
   loadCatalog(): Promise<boolean>;
   toggleFavorite(id: string): void;
@@ -60,7 +61,9 @@ export interface ShopState {
   removeFromCart(key: string): void;
   submitOrder(): Promise<SavedOrder | null>;
   refreshOrder(id: string): Promise<void>;
+  cancelOrder(id: string): Promise<boolean>;
   clearMessage(): void;
+  clearNotice(): void;
 }
 const message = (e: unknown) =>
   e instanceof Error ? e.message : "No se pudo completar la operación.";
@@ -159,7 +162,9 @@ export function createShopStore(deps: ShopDependencies) {
       notice: null,
       storageError: null,
       submitting: false,
+      cancellingOrderId: null,
       clearMessage: () => set({ error: null, notice: null }),
+      clearNotice: () => set({ notice: null }),
       hydrate: () =>
         (hydration ??= (async () => {
           try {
@@ -216,7 +221,7 @@ export function createShopStore(deps: ShopDependencies) {
           set({
             cart: addLine(get().cart, makeLine(product, variantId, optionIds)),
             error: null,
-            notice: "Producto agregado al carrito.",
+            notice: `${product.name} agregado al carrito.`,
           });
           remember();
           return true;
@@ -317,11 +322,32 @@ export function createShopStore(deps: ShopDependencies) {
             throw new Error(
               "La sesión del pedido pendiente ya no está disponible. Consulta con la cafetería antes de hacer otro pedido.",
             );
-          const response = await deps.api.createOrder(
-            pending.body,
-            session.token,
-            pending.key,
-          );
+          let response;
+          try {
+            response = await deps.api.createOrder(
+              pending.body,
+              session.token,
+              pending.key,
+            );
+          } catch (error) {
+            // Un 401 se produce antes de crear el pedido. Es seguro renovar la
+            // sesión y conservar el mismo cuerpo y clave de idempotencia.
+            if (!(error instanceof ApiError) || error.status !== 401)
+              throw error;
+            session = {
+              ...(await deps.api.createSession()),
+              localId: deps.uuid(),
+            };
+            await deps.vault.write(session);
+            pending = { ...pending, sessionId: session.localId };
+            set({ pending });
+            await save();
+            response = await deps.api.createOrder(
+              pending.body,
+              session.token,
+              pending.key,
+            );
+          }
           const order = {
             ...response,
             sessionId: session.localId,
@@ -397,13 +423,56 @@ export function createShopStore(deps: ShopDependencies) {
             });
             await save();
           } catch (e) {
-            set({ error: message(e) });
+            set({
+              error:
+                e instanceof ApiError && e.status === 401
+                  ? "La sesión de consulta terminó. Se muestra el último estado guardado."
+                  : message(e),
+            });
           } finally {
             refreshes.delete(id);
           }
         })();
         refreshes.set(id, task);
         return task;
+      },
+      cancelOrder: async (id) => {
+        if (get().cancellingOrderId) return false;
+        const saved = get().orders.find((order) => order.id === id);
+        if (!saved || saved.status !== "new") {
+          set({ error: "Este pedido ya no se puede cancelar desde la app." });
+          return false;
+        }
+        set({ cancellingOrderId: id, error: null, notice: null });
+        try {
+          const session = await deps.vault.read();
+          if (!session || session.localId !== saved.sessionId)
+            throw new Error(
+              "No se encontró la sesión original del pedido. Solicita apoyo en la cafetería.",
+            );
+          const order = await deps.api.cancelOrder(id, session.token);
+          set({
+            orders: get().orders.map((item) =>
+              item.id === id
+                ? {
+                    ...order,
+                    sessionId: saved.sessionId,
+                    checkedAt: new Date(deps.now()).toISOString(),
+                  }
+                : item,
+            ),
+            notice: `Pedido ${order.folio} cancelado.`,
+          });
+          await save();
+          return true;
+        } catch (e) {
+          set({ error: message(e) });
+          if (e instanceof ApiError && e.status === 409)
+            void get().refreshOrder(id);
+          return false;
+        } finally {
+          set({ cancellingOrderId: null });
+        }
       },
     };
   });

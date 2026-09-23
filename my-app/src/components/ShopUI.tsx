@@ -9,11 +9,13 @@ export function Button({
   onPress,
   disabled = false,
   secondary = false,
+  danger = false,
 }: {
   title: string;
   onPress(): void;
   disabled?: boolean;
   secondary?: boolean;
+  danger?: boolean;
 }) {
   return (
     <Pressable
@@ -21,9 +23,14 @@ export function Button({
       accessibilityState={{ disabled }}
       disabled={disabled}
       onPress={onPress}
-      style={[ui.button, secondary && ui.secondary, disabled && ui.disabled]}
+      style={[
+        ui.button,
+        secondary && ui.secondary,
+        danger && ui.danger,
+        disabled && ui.disabled,
+      ]}
     >
-      <Text style={ui.buttonText}>{title}</Text>
+      <Text style={[ui.buttonText, danger && ui.dangerText]}>{title}</Text>
     </Pressable>
   );
 }
@@ -139,18 +146,12 @@ export function Header({
 }
 export function Messages() {
   const error = useProductStore((s) => s.error);
-  const notice = useProductStore((s) => s.notice);
   const storageError = useProductStore((s) => s.storageError);
   return (
     <>
       {(storageError || error) && (
         <Text accessibilityRole="alert" style={ui.error}>
           {storageError || error}
-        </Text>
-      )}
-      {notice && (
-        <Text accessibilityLiveRegion="polite" style={ui.notice}>
-          {notice}
         </Text>
       )}
     </>
@@ -206,6 +207,8 @@ export const ui = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#E8CDAC",
   },
+  danger: { backgroundColor: "#A33B2B" },
+  dangerText: { color: "#FFFFFF" },
   disabled: { opacity: 0.45 },
   error: {
     color: "#992E24",

@@ -25,6 +25,31 @@ test("valida contrato y usa headers de compra, sin cookies", async () => {
     h.order.id,
   );
 });
+test("cancelación usa la sesión del comprador y no envía cookies", async () => {
+  const h = harness();
+  const token = "a".repeat(64);
+  const client = createApiClient(
+    "https://cafeteria.example",
+    async (url, init) => {
+      assert.equal(
+        url,
+        `https://cafeteria.example/api/v1/pedidos/${h.order.id}/cancelacion`,
+      );
+      assert.equal(init?.method, "PATCH");
+      assert.equal(init?.credentials, "omit");
+      assert.equal(
+        new Headers(init?.headers).get("Authorization"),
+        `Bearer ${token}`,
+      );
+      assert.deepEqual(JSON.parse(init?.body as string), {});
+      return Response.json({ ...h.order, status: "cancelled" });
+    },
+  );
+  assert.equal(
+    (await client.cancelOrder(h.order.id, token)).status,
+    "cancelled",
+  );
+});
 test("catálogo válido se transforma, contrato incorrecto se rechaza", async () => {
   const good = createApiClient("https://cafeteria.example", async () =>
     Response.json({

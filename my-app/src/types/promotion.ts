@@ -9,7 +9,11 @@ export const promotionSchema = z.object({
     .string()
     .max(1000)
     .refine((value) => {
-      if (!value || /^assets\/[a-zA-Z0-9_-]+\.(png|jpe?g|webp)$/.test(value))
+      if (
+        !value ||
+        /^assets\/[a-zA-Z0-9_-]+\.(png|jpe?g|webp)$/.test(value) ||
+      /^\/api\/v1\/archivos\/[0-9a-f-]{36}$/.test(value)
+      )
         return true;
       try {
         const url = new URL(value);

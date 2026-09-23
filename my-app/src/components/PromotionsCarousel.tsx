@@ -84,10 +84,7 @@ export function PromotionsCarousel() {
                 <Image
                   source={source(p)}
                   resizeMode="cover"
-                  style={[
-                    StyleSheet.absoluteFill,
-                    { width: "100%", height: "100%" },
-                  ]}
+                  style={StyleSheet.absoluteFill}
                   onError={() =>
                     setFailedImages((previous) => [...previous, p.image])
                   }
@@ -189,18 +186,19 @@ const styles = StyleSheet.create({
   frame: {
     borderRadius: 24,
     overflow: "hidden",
+    height: 214,
     backgroundColor: "#392013",
     borderWidth: 1,
     borderColor: "#4C3020",
   },
   slide: {
-    minHeight: 190,
+    height: 214,
     justifyContent: "center",
-    paddingTop: 22,
-    paddingBottom: 32,
+    paddingTop: 18,
+    paddingBottom: 30,
     paddingHorizontal: 20,
   },
-  copy: { gap: 5, alignItems: "flex-start", paddingRight: 14 },
+  copy: { gap: 4, alignItems: "flex-start", paddingRight: 14, maxWidth: "88%" },
   badge: {
     backgroundColor: "#AF691F",
     paddingHorizontal: 8,
@@ -216,8 +214,8 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#FFF9EF",
-    fontSize: 21,
-    lineHeight: 25,
+    fontSize: 20,
+    lineHeight: 24,
     fontWeight: "700",
     fontFamily: Platform.OS === "ios" ? "Georgia" : "serif",
     letterSpacing: -0.4,
@@ -228,13 +226,13 @@ const styles = StyleSheet.create({
   description: {
     color: "#F3E7DA",
     fontSize: 12,
-    lineHeight: 18,
-    maxWidth: "90%",
+    lineHeight: 17,
+    maxWidth: "100%",
     textShadowColor: "rgba(0,0,0,0.8)",
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 3,
   },
-  ctaTarget: { minHeight: 44, justifyContent: "center" },
+  ctaTarget: { minHeight: 40, justifyContent: "center" },
   cta: {
     backgroundColor: "#FFF",
     borderRadius: 11,

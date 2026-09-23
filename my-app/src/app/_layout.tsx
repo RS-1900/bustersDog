@@ -7,6 +7,7 @@ import * as NativeSplash from "expo-splash-screen";
 import BrandSplash from "../components/splash";
 import { shopStore } from "../stores/useProductStore";
 import { startOrderNotifications } from "../services/order-notifications";
+import { CartToast } from "../components/CartToast";
 void NativeSplash.preventAutoHideAsync().catch(() => {});
 export default function RootLayout() {
   const [showSplash, setShowSplash] = useState(true);
@@ -43,6 +44,7 @@ export default function RootLayout() {
             contentStyle: { backgroundColor: "#FFFFFF" },
           }}
         />
+        <CartToast />
         {showSplash && <BrandSplash onFinish={finish} onReady={ready} />}
       </View>
     </SafeAreaProvider>

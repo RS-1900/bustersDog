@@ -96,6 +96,16 @@ export function createApiClient(
       request("/api/v1/pedidos/" + encodeURIComponent(id), orderSchema, {
         headers: { Authorization: "Bearer " + token },
       }),
+    cancelOrder: (id: string, token: string) =>
+      request(
+        "/api/v1/pedidos/" + encodeURIComponent(id) + "/cancelacion",
+        orderSchema,
+        {
+          method: "PATCH",
+          headers: { Authorization: "Bearer " + token },
+          body: "{}",
+        },
+      ),
   };
 }
 export type CafeApi = ReturnType<typeof createApiClient>;

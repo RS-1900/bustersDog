@@ -1,5 +1,13 @@
-import { useCallback } from "react";
-import { AppState, ScrollView, Text, View } from "react-native";
+import { useCallback, useState } from "react";
+import {
+  AppState,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { useFocusEffect, useLocalSearchParams, router } from "expo-router";
 import { useProductStore, shopStore } from "../../stores/useProductStore";
 import {
@@ -15,9 +23,15 @@ import {
 import { cents, money, statusLabels } from "../../domain/cart";
 export default function OrderScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { orders, hydrated, refreshOrder, clearMessage } = useProductStore(
-    (s) => s,
-  );
+  const [showCancellation, setShowCancellation] = useState(false);
+  const {
+    orders,
+    hydrated,
+    refreshOrder,
+    cancelOrder,
+    cancellingOrderId,
+    clearMessage,
+  } = useProductStore((s) => s);
   const order = orders.find((o) => o.id === id);
   useFocusEffect(
     useCallback(() => {
@@ -108,7 +122,11 @@ export default function OrderScreen() {
               <Text style={ui.muted}>
                 {order.status === "ready"
                   ? "Muestra tu folio en la cafetería al recoger."
-                  : "Tu pausa está en marcha. Consulta aquí el estado de tu pedido."}
+                  : order.status === "cancelled"
+                    ? "La cancelación quedó registrada. Este pedido ya no será preparado."
+                    : order.status === "delivered"
+                      ? "Este pedido ya fue entregado."
+                      : "Tu pausa está en marcha. Consulta aquí el estado de tu pedido."}
               </Text>
               <Progress status={order.status} />
             </View>
@@ -152,6 +170,18 @@ export default function OrderScreen() {
               secondary
               onPress={() => void refreshOrder(id)}
             />
+            {order.status === "new" && (
+              <Button
+                title={
+                  cancellingOrderId === order.id
+                    ? "Cancelando pedido…"
+                    : "Cancelar pedido"
+                }
+                danger
+                disabled={cancellingOrderId === order.id}
+                onPress={() => setShowCancellation(true)}
+              />
+            )}
           </>
         )}
         <Button
@@ -160,6 +190,154 @@ export default function OrderScreen() {
           onPress={() => router.replace("/orders")}
         />
       </ScrollView>
+      <Modal
+        visible={showCancellation && order?.status === "new"}
+        transparent
+        animationType="fade"
+        statusBarTranslucent
+        onRequestClose={() => setShowCancellation(false)}
+      >
+        <View style={styles.modalBackdrop}>
+          <View
+            accessibilityViewIsModal
+            accessibilityLabel="Confirmar cancelación del pedido"
+            style={styles.modalCard}
+          >
+            <View style={styles.modalMark}>
+              <Text style={styles.modalMarkText}>!</Text>
+            </View>
+            <Text style={styles.modalEyebrow}>ANTES DE CANCELAR</Text>
+            <Text style={styles.modalTitle}>¿Cancelamos este pedido?</Text>
+            <Text style={styles.modalText}>
+              Puedes cancelarlo mientras la cafetería todavía no haya comenzado
+              a prepararlo.
+            </Text>
+            <View style={styles.modalNotice}>
+              <Text style={styles.modalNoticeText}>
+                El pedido quedará guardado en tu historial como cancelado.
+              </Text>
+            </View>
+            <View style={styles.modalActions}>
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => setShowCancellation(false)}
+                style={({ pressed }) => [
+                  styles.keepButton,
+                  pressed && styles.pressed,
+                ]}
+              >
+                <Text style={styles.keepButtonText}>Conservar mi pedido</Text>
+              </Pressable>
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => {
+                  setShowCancellation(false);
+                  if (order) void cancelOrder(order.id);
+                }}
+                style={({ pressed }) => [
+                  styles.cancelButton,
+                  pressed && styles.pressed,
+                ]}
+              >
+                <Text style={styles.cancelButtonText}>Sí, cancelar pedido</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </Page>
   );
 }
+
+const styles = StyleSheet.create({
+  modalBackdrop: {
+    flex: 1,
+    padding: 24,
+    backgroundColor: "rgba(42, 31, 22, 0.62)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modalCard: {
+    width: "100%",
+    maxWidth: 420,
+    padding: 24,
+    borderRadius: 28,
+    backgroundColor: "#FFF9F1",
+    borderWidth: 1,
+    borderColor: "#EBCFAE",
+    alignItems: "center",
+    shadowColor: "#2E1A0D",
+    shadowOpacity: 0.24,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 16,
+  },
+  modalMark: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    marginBottom: 15,
+    backgroundColor: "#F7DFC0",
+    borderWidth: 1,
+    borderColor: "#E7BF8C",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modalMarkText: { color: "#8A571E", fontSize: 27, fontWeight: "900" },
+  modalEyebrow: {
+    color: "#A66A25",
+    fontSize: 10,
+    fontWeight: "800",
+    letterSpacing: 1.8,
+    marginBottom: 7,
+  },
+  modalTitle: {
+    color: "#493018",
+    fontSize: 24,
+    lineHeight: 30,
+    fontWeight: "800",
+    textAlign: "center",
+  },
+  modalText: {
+    color: "#725C47",
+    fontSize: 14,
+    lineHeight: 21,
+    textAlign: "center",
+    marginTop: 10,
+  },
+  modalNotice: {
+    width: "100%",
+    marginTop: 18,
+    padding: 13,
+    borderRadius: 16,
+    backgroundColor: "#FFF0D8",
+  },
+  modalNoticeText: {
+    color: "#7B542A",
+    fontSize: 12,
+    lineHeight: 18,
+    textAlign: "center",
+  },
+  modalActions: { width: "100%", gap: 10, marginTop: 20 },
+  keepButton: {
+    minHeight: 50,
+    borderRadius: 25,
+    backgroundColor: "#6A4222",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 16,
+  },
+  keepButtonText: { color: "#FFF", fontSize: 15, fontWeight: "800" },
+  cancelButton: {
+    minHeight: 48,
+    borderRadius: 24,
+    backgroundColor: "#FFF0EC",
+    borderWidth: 1,
+    borderColor: "#E0B4AA",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 16,
+  },
+  cancelButtonText: { color: "#9A392C", fontSize: 14, fontWeight: "800" },
+  pressed: { opacity: 0.78 },
+});
