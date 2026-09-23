@@ -2,6 +2,9 @@
 
 App de React Native con Expo SDK 57. Permite consultar el catálogo real, elegir presentaciones y complementos, guardar favoritos, confirmar pedidos anónimos y seguir su estado.
 
+Consulta la [guía de uso](GUIA-USO.md) para el recorrido del cliente, solución
+de problemas, desarrollo local y generación del APK.
+
 ## Iniciar
 
 Requisitos: Node.js 24, npm y acceso a la API del proyecto (con su base normalizada y rutas `/api/v1`). Este repositorio contiene la app; el backend y el panel se mantienen por separado.
