@@ -7,7 +7,12 @@ de problemas, desarrollo local y generación del APK.
 
 ## Iniciar
 
-Requisitos: Node.js 24, npm y acceso a la API del proyecto (con su base normalizada y rutas `/api/v1`). Este repositorio contiene la app; el backend y el panel se mantienen por separado.
+Si descargaste el repositorio completo, abre primero una terminal en su raíz.
+El siguiente `cd my-app` se ejecuta una sola vez; si ya estás en la carpeta de
+este README (junto a `package.json`), omítelo. El [README principal](../README.md)
+incluye la configuración paso a paso y la solución de problemas.
+
+Requisitos: [Node.js 24 y npm](https://nodejs.org/en/download), un navegador para web y acceso a la API del proyecto (con su base normalizada y rutas `/api/v1`). Este repositorio contiene la app; el backend y el panel se mantienen por separado.
 
 ```sh
 cd my-app
@@ -22,9 +27,9 @@ Para cambiar de servidor, copia `.env.example` a `.env` y configura **solo el or
 EXPO_PUBLIC_API_URL=https://cafeteria-api-3hqs.onrender.com
 ```
 
-La misma URL HTTPS sirve para Android, iOS y web. Render gratuito puede tardar al despertar después de un periodo sin uso; la app espera hasta 90 segundos por solicitud.
+La misma URL HTTPS sirve para Android, iOS y web. El servidor puede tardar al despertar; la app espera hasta 90 segundos por solicitud. Los pedidos enviados al servicio compartido son reales: usa una API de desarrollo para probar compras.
 
-Si eliges ejecutar un backend local, usa `http://localhost:5000` en web, `http://10.0.2.2:5000` en el emulador Android o la IP LAN de tu computadora en un teléfono físico.
+Si eliges ejecutar un backend local, usa `http://localhost:5000` en web, `http://10.0.2.2:5000` en el emulador Android o la IP LAN de tu computadora en un teléfono físico. Sigue el [README de la API y el panel](https://github.com/axel-glez/cafeteria-api#readme); en una base nueva debes entrar al panel como administrador, abrir **Nuevo producto**, crear la primera categoría y guardar al menos un producto disponible para que esta app muestre contenido.
 
 ```sh
 npm start
@@ -32,7 +37,9 @@ npm start
 npm run web
 ```
 
-Para web, configura `MOBILE_ORIGINS=http://localhost:8081` en el backend, usando el origen real que muestre Expo; reinicia la API. Esa autorización se limita a `/api/v1`. Reinicia Expo si cambias `.env`.
+Para web, abre la dirección que muestre Expo (normalmente `http://localhost:8081`). Configura `MOBILE_ORIGINS=http://localhost:8081` en el backend, usando el origen real; reinicia la API. Esa autorización se limita a `/api/v1`. Reinicia Expo si cambias `.env`. Detén el servidor con **Ctrl+C**.
+
+Para móvil, escanea el QR de `npm start` con Expo Go compatible con SDK 57 y usa la misma red Wi-Fi. `npm run android` requiere un emulador iniciado en Android Studio; `npm run ios` requiere macOS y un simulador de Xcode. Las notificaciones push requieren comprobar una compilación nativa en dispositivo.
 
 `EXPO_PUBLIC_*` se incluye en la app distribuida. Nunca colocar aquí contraseñas, `DATABASE_URL`, claves de Supabase ni credenciales del personal.
 
@@ -43,7 +50,7 @@ Para web, configura `MOBILE_ORIGINS=http://localhost:8081` en el backend, usando
 - Cada línea se identifica por variante + opciones. El servidor valida disponibilidad, opciones y total.
 - El carrito se conserva durante el envío. Solo se vacía después de recibir un pedido confirmado.
 - Los reintentos conservan sesión, clave y cuerpo. Una respuesta perdida no se resuelve creando otro pedido.
-- El estado se consulta cada 15 segundos mientras el detalle está visible y la app está activa; se detiene al entregar o cancelar.
+- El estado se actualiza por Socket.IO, con consultas periódicas de respaldo mientras el detalle está visible y la app está activa; el seguimiento termina al entregar o cancelar.
 
 ## Datos en el dispositivo
 
@@ -64,6 +71,8 @@ npx expo export --platform android --output-dir dist-android
 ```
 
 Las pruebas cubren límites por producto, opciones, importes en centavos, persistencia previa al envío, doble toque, pérdida de respuesta, reinicio, cambio de precio, agotados y errores del servidor. Las exportaciones validan los paquetes JavaScript; no generan un APK ni sustituyen pruebas en Android/iOS.
+
+En la revisión del 25 de septiembre de 2026 pasaron la instalación limpia, `typecheck`, las 36 pruebas y la exportación web. `format:check` también pasó tras aplicar el formato automático. No se verificó la exportación Android ni la ejecución en dispositivos nativos. Consulta el [alcance de la verificación](../README.md#verificación-de-estas-instrucciones).
 
 ## Organización
 
